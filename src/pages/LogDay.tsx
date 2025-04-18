@@ -18,30 +18,30 @@ export default function LogDay() {
   const [selectedActivity, setSelectedActivity] = useState<string>("");
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white p-4">
       <div className="max-w-md mx-auto space-y-6">
         <Button
           variant="ghost"
-          className="mb-4"
+          className="mb-4 text-slate-600 hover:text-slate-800"
           onClick={() => navigate(-1)}
         >
           <ChevronLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
 
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <h2 className="text-lg font-medium mb-3">Date</h2>
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-100">
+          <h2 className="text-lg font-medium text-slate-800 mb-4">Date</h2>
           <Calendar
             mode="single"
             selected={date}
             onSelect={(date) => date && setDate(date)}
-            className="rounded-md border w-full"
+            className="rounded-lg border-slate-200"
           />
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div>
-            <h2 className="text-lg font-medium mb-3">Ski Resort</h2>
+            <h2 className="text-lg font-medium text-slate-800 mb-4">Ski Resort</h2>
             <div className="flex flex-wrap gap-2">
               {RESORTS.map((resort) => (
                 <SelectionPill
@@ -55,7 +55,7 @@ export default function LogDay() {
           </div>
 
           <div>
-            <h2 className="text-lg font-medium mb-3">Skis</h2>
+            <h2 className="text-lg font-medium text-slate-800 mb-4">Skis</h2>
             <div className="flex flex-wrap gap-2">
               {SKIS.map((ski) => (
                 <SelectionPill
@@ -69,7 +69,7 @@ export default function LogDay() {
           </div>
 
           <div>
-            <h2 className="text-lg font-medium mb-3">Activity</h2>
+            <h2 className="text-lg font-medium text-slate-800 mb-4">Activity</h2>
             <div className="flex flex-wrap gap-2">
               {ACTIVITIES.map((activity) => (
                 <SelectionPill
@@ -84,7 +84,7 @@ export default function LogDay() {
         </div>
 
         <Button 
-          className="w-full h-14 text-lg bg-blue-900 hover:bg-blue-800 text-white mt-8"
+          className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg transition-all hover:shadow-xl mt-8"
         >
           Save
         </Button>
