@@ -48,8 +48,8 @@ export default function LogDay() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-4">
-      <div className="max-w-md mx-auto space-y-6">
+    <div className="min-h-screen bg-white p-4 flex justify-center">
+      <div className="w-full max-w-md space-y-6">
         <Button
           variant="ghost"
           className="mb-4 text-slate-600 hover:text-slate-800"
