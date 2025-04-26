@@ -46,7 +46,7 @@ export default function DaysPage() {
 
         <h1 className="text-2xl font-bold text-slate-800 mb-8 text-center">Ski Days</h1>
 
-        <div className="bg-white rounded-xl shadow-lg border border-slate-100 divide-y divide-slate-100">
+        <div className="bg-white">
           {sampleDays.map((day, index) => (
             <div key={day.id}>
               <SkiDayItem day={day} />

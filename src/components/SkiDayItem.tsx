@@ -10,7 +10,7 @@ interface SkiDayItemProps {
 export function SkiDayItem({ day }: SkiDayItemProps) {
   return (
     <div className="flex items-center gap-4 p-4">
-      <Avatar className="h-16 w-16 rounded-lg border border-slate-200">
+      <Avatar className="h-16 w-16 rounded-lg shadow-md">
         <AvatarFallback className="bg-slate-50 text-slate-400 text-sm">
           {day.resort.split(' ').map(word => word[0]).join('')}
         </AvatarFallback>
