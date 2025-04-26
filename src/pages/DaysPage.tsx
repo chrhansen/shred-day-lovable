@@ -2,14 +2,8 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-  TableHead,
-} from "@/components/ui/table";
+import { Separator } from "@/components/ui/separator";
+import { SkiDayItem } from "@/components/SkiDayItem";
 
 const sampleDays = [
   {
@@ -40,7 +34,7 @@ export default function DaysPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white p-4">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto">
         <Button
           variant="ghost"
           className="mb-4 text-slate-600 hover:text-slate-800"
@@ -52,27 +46,13 @@ export default function DaysPage() {
 
         <h1 className="text-2xl font-bold text-slate-800 mb-8 text-center">Ski Days</h1>
 
-        <div className="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Resort</TableHead>
-                <TableHead>Ski</TableHead>
-                <TableHead>Activity</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sampleDays.map((day) => (
-                <TableRow key={day.id}>
-                  <TableCell>{day.date.toLocaleDateString()}</TableCell>
-                  <TableCell className="font-medium">{day.resort}</TableCell>
-                  <TableCell>{day.ski}</TableCell>
-                  <TableCell>{day.activity}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        <div className="bg-white rounded-xl shadow-lg border border-slate-100 divide-y divide-slate-100">
+          {sampleDays.map((day, index) => (
+            <div key={day.id}>
+              <SkiDayItem day={day} />
+              {index < sampleDays.length - 1 && <Separator />}
+            </div>
+          ))}
         </div>
       </div>
     </div>
