@@ -59,7 +59,7 @@ export default function LogDay() {
           Back
         </Button>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-full">
           <div className="w-full max-w-md">
             <h2 className="text-lg font-medium text-slate-800 mb-4 text-center">Date</h2>
             <Calendar
