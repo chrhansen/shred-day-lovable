@@ -59,14 +59,16 @@ export default function LogDay() {
           Back
         </Button>
 
-        <div className="bg-white rounded-xl">
-          <h2 className="text-lg font-medium text-slate-800 mb-4">Date</h2>
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={(date) => date && setDate(date)}
-            className="rounded-lg"
-          />
+        <div className="flex flex-col items-center">
+          <div className="w-full max-w-md">
+            <h2 className="text-lg font-medium text-slate-800 mb-4 text-center">Date</h2>
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={(date) => date && setDate(date)}
+              className="rounded-lg mx-auto"
+            />
+          </div>
         </div>
 
         <div className="space-y-8">
