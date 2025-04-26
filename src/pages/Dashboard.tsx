@@ -15,7 +15,7 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white p-4">
+    <div className="min-h-screen bg-white p-4">
       <div className="max-w-md mx-auto space-y-8 pt-8">
         <h1 className="text-2xl font-bold text-slate-800 mb-8 text-center">My Ski Journal</h1>
         <div className="grid grid-cols-1 gap-6">

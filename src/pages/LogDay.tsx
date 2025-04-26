@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
@@ -47,7 +48,7 @@ export default function LogDay() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white p-4">
+    <div className="min-h-screen bg-white p-4">
       <div className="max-w-md mx-auto space-y-6">
         <Button
           variant="ghost"
@@ -58,13 +59,13 @@ export default function LogDay() {
           Back
         </Button>
 
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-100">
+        <div className="bg-white rounded-xl">
           <h2 className="text-lg font-medium text-slate-800 mb-4">Date</h2>
           <Calendar
             mode="single"
             selected={date}
             onSelect={(date) => date && setDate(date)}
-            className="rounded-lg border-slate-200"
+            className="rounded-lg"
           />
         </div>
 
