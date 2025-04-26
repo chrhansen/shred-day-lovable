@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import LogDay from "./pages/LogDay";
+import DaysPage from "./pages/DaysPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -19,6 +20,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/log" element={<LogDay />} />
+          <Route path="/days" element={<DaysPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

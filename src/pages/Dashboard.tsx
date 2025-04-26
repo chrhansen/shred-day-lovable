@@ -19,7 +19,9 @@ export default function Dashboard() {
       <div className="max-w-md mx-auto space-y-8 pt-8">
         <h1 className="text-2xl font-bold text-slate-800 mb-8 text-center">My Ski Journal</h1>
         <div className="grid grid-cols-1 gap-6">
-          <StatsCard label="Days Skied" value={stats?.totalDays ?? '...'} />
+          <div onClick={() => navigate("/days")} className="cursor-pointer">
+            <StatsCard label="Days Skied" value={stats?.totalDays ?? '...'} />
+          </div>
           <StatsCard label="Resorts Visited" value={stats?.uniqueResorts ?? '...'} />
           <StatsCard label="Most Used Ski" value={stats?.mostUsedSki ?? '...'} />
         </div>
