@@ -1,12 +1,16 @@
 
 import { format } from "date-fns";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X } from "lucide-react";
 import { type SkiDay } from "@/types/ski";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogOverlay } from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+import { 
+  Sheet,
+  SheetContent,
+  SheetOverlay
+} from "@/components/ui/sheet";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 
 interface SkiDayDetailProps {
   day: SkiDay;
@@ -19,9 +23,8 @@ export function SkiDayDetail({ day, isOpen, onClose }: SkiDayDetailProps) {
   const images = [1, 2, 3]; // In a real app, these would be actual image URLs from the day
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogOverlay className="bg-black/40 backdrop-blur-sm" />
-      <DialogContent className="sm:max-w-md md:max-w-xl p-0 gap-0 border-none overflow-hidden bg-white rounded-xl">
+    <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <SheetContent side="bottom" className="h-[90%] p-0 rounded-t-xl border-t bg-white overflow-auto">
         <div className="relative">
           {/* Carousel for images */}
           <Carousel className="w-full">
@@ -85,7 +88,7 @@ export function SkiDayDetail({ day, isOpen, onClose }: SkiDayDetailProps) {
             </p>
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }
