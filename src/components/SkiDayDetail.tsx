@@ -20,7 +20,7 @@ export function SkiDayDetail({ day, isOpen, onClose }: SkiDayDetailProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogOverlay className="bg-black/40 backdrop-blur-sm" />
+      <DialogOverlay className="bg-black/20 backdrop-blur-sm" />
       <DialogContent className="sm:max-w-md md:max-w-xl p-0 gap-0 border-none overflow-hidden bg-white rounded-xl">
         <div className="relative">
           {/* Carousel for images */}
