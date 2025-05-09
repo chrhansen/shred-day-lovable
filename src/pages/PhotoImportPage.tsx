@@ -2,7 +2,7 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Upload, X } from "lucide-react";
+import { ChevronLeft, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { DragDropZone } from "@/components/DragDropZone";
 import { DraftDayList } from "@/components/DraftDayList";
@@ -15,14 +15,28 @@ const sampleDraftDays: DraftDay[] = [
     date: new Date("2025-03-15"),
     resort: "Aspen Snowmass",
     photoCount: 5,
-    status: "pending"
+    status: "pending",
+    photos: [
+      "/placeholder-1.jpg",
+      "/placeholder-2.jpg",
+      "/placeholder-3.jpg",
+      "/placeholder-4.jpg",
+      "/placeholder-5.jpg",
+    ]
   },
   {
     id: "draft-2",
     date: new Date("2025-03-16"),
     resort: "Vail Resorts",
     photoCount: 8,
-    status: "pending"
+    status: "pending",
+    photos: [
+      "/placeholder-2.jpg",
+      "/placeholder-3.jpg",
+      "/placeholder-4.jpg",
+      "/placeholder-5.jpg",
+      "/placeholder-1.jpg",
+    ]
   }
 ];
 
@@ -32,7 +46,6 @@ export default function PhotoImportPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [draftDays, setDraftDays] = useState<DraftDay[]>([]);
-  const [showDraftReview, setShowDraftReview] = useState(false);
 
   const handleFileDrop = useCallback((files: File[]) => {
     if (files.length === 0) return;
@@ -45,7 +58,6 @@ export default function PhotoImportPage() {
         if (prev >= 100) {
           clearInterval(interval);
           setIsUploading(false);
-          setShowDraftReview(true);
           setDraftDays(sampleDraftDays);
           return 100;
         }
@@ -106,7 +118,7 @@ export default function PhotoImportPage() {
             Cancel
           </Button>
           
-          {showDraftReview && draftDays.some(day => day.status === "accepted") && (
+          {draftDays.length > 0 && draftDays.some(day => day.status === "accepted") && (
             <Button 
               onClick={handleSaveDays}
               className="flex items-center gap-2"
@@ -117,22 +129,25 @@ export default function PhotoImportPage() {
         </div>
 
         <h1 className="text-2xl font-bold text-slate-800 mb-8 text-center">
-          {showDraftReview ? "Review Imported Days" : "Import Photos"}
+          Import Photos
         </h1>
 
-        {!showDraftReview ? (
-          <DragDropZone 
-            onFileDrop={handleFileDrop}
-            isUploading={isUploading}
-            uploadProgress={uploadProgress}
-            acceptedFileTypes={[".jpg", ".jpeg", ".png"]}
-          />
-        ) : (
-          <DraftDayList
-            draftDays={draftDays}
-            onStatusChange={handleStatusChange}
-            onDraftEdit={handleDraftEdit}
-          />
+        <DragDropZone 
+          onFileDrop={handleFileDrop}
+          isUploading={isUploading}
+          uploadProgress={uploadProgress}
+          acceptedFileTypes={[".jpg", ".jpeg", ".png"]}
+        />
+        
+        {draftDays.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-xl font-semibold mb-4">Review Imported Days</h2>
+            <DraftDayList
+              draftDays={draftDays}
+              onStatusChange={handleStatusChange}
+              onDraftEdit={handleDraftEdit}
+            />
+          </div>
         )}
       </div>
     </div>
