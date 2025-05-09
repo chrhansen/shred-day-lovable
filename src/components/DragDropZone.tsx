@@ -1,7 +1,7 @@
 
 import { useState, useCallback } from "react";
 import { Upload } from "lucide-react";
-import { Progress } from "@/components/ui/sheet";
+import { Progress } from "@/components/ui/progress";
 
 interface DragDropZoneProps {
   onFileDrop: (files: File[]) => void;
