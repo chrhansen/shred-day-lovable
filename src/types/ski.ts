@@ -12,3 +12,12 @@ export interface SkiStats {
   uniqueResorts: number;
   mostUsedSki: string;
 }
+
+export interface DraftDay {
+  id: string;
+  date: Date;
+  resort: string;
+  photoCount: number;
+  status: "pending" | "accepted" | "rejected";
+  photos?: string[]; // URLs to photos
+}

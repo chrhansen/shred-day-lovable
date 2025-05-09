@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import LogDay from "./pages/LogDay";
 import DaysPage from "./pages/DaysPage";
+import PhotoImportPage from "./pages/PhotoImportPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Dashboard />} />
           <Route path="/log" element={<LogDay />} />
           <Route path="/days" element={<DaysPage />} />
+          <Route path="/import" element={<PhotoImportPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
