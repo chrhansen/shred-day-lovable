@@ -25,17 +25,64 @@ export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListPr
     });
   }, [photos]);
 
+  // Group photos by date and resort
+  const groupedPhotos = useMemo(() => {
+    const groups: { [key: string]: SkiPhoto[] } = {};
+    
+    sortedPhotos.forEach(photo => {
+      // Create a unique key for each date+resort combination
+      const dateStr = photo.date.toISOString().split('T')[0];
+      const key = `${dateStr}_${photo.resort}`;
+      
+      if (!groups[key]) {
+        groups[key] = [];
+      }
+      
+      groups[key].push(photo);
+    });
+    
+    // Convert the groups object to an array for rendering
+    return Object.entries(groups).map(([key, photos]) => {
+      const [dateStr, resort] = key.split('_');
+      return {
+        id: key,
+        dateStr,
+        resort,
+        photos
+      };
+    });
+  }, [sortedPhotos]);
+
   return (
     <div className="bg-white rounded-lg shadow-sm border border-slate-100">
-      {sortedPhotos.length > 0 ? (
+      {groupedPhotos.length > 0 ? (
         <div>
-          {sortedPhotos.map((photo) => (
-            <PhotoItem 
-              key={photo.id} 
-              photo={photo} 
-              onUpdate={onPhotoUpdate}
-              onStatusChange={onStatusChange}
-            />
+          {groupedPhotos.map((group) => (
+            <div key={group.id} className="mb-4">
+              {/* Group header - only show if there are multiple photos in the group */}
+              {group.photos.length > 1 && (
+                <div className="bg-purple-50 p-3 border-l-4 border-purple-400">
+                  <h3 className="text-sm font-medium text-purple-800">
+                    Ski Day: {group.resort} • {new Date(group.dateStr).toLocaleDateString()}
+                  </h3>
+                  <p className="text-xs text-purple-600">
+                    {group.photos.length} photos in this ski day
+                  </p>
+                </div>
+              )}
+              
+              {/* Photos in this group */}
+              <div className={group.photos.length > 1 ? "border-l-4 border-purple-100 pl-3" : ""}>
+                {group.photos.map((photo) => (
+                  <PhotoItem 
+                    key={photo.id} 
+                    photo={photo} 
+                    onUpdate={onPhotoUpdate}
+                    onStatusChange={onStatusChange}
+                  />
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       ) : (
