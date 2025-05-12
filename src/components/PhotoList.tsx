@@ -59,20 +59,18 @@ export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListPr
         <div>
           {groupedPhotos.map((group) => (
             <div key={group.id} className="mb-4">
-              {/* Group header - only show if there are multiple photos in the group */}
-              {group.photos.length > 1 && (
-                <div className="bg-purple-50 p-3 border-l-4 border-purple-400">
-                  <h3 className="text-sm font-medium text-purple-800">
-                    Ski Day: {group.resort} • {new Date(group.dateStr).toLocaleDateString()}
-                  </h3>
-                  <p className="text-xs text-purple-600">
-                    {group.photos.length} photos in this ski day
-                  </p>
-                </div>
-              )}
+              {/* Group header - show for all groups regardless of size */}
+              <div className="bg-purple-50 p-3 border-l-4 border-purple-400">
+                <h3 className="text-sm font-medium text-purple-800">
+                  Ski Day: {group.resort} • {new Date(group.dateStr).toLocaleDateString()}
+                </h3>
+                <p className="text-xs text-purple-600">
+                  {group.photos.length} {group.photos.length === 1 ? 'photo' : 'photos'} in this ski day
+                </p>
+              </div>
               
               {/* Photos in this group */}
-              <div className={group.photos.length > 1 ? "border-l-4 border-purple-100 pl-3" : ""}>
+              <div className="border-l-4 border-purple-100 pl-3">
                 {group.photos.map((photo) => (
                   <PhotoItem 
                     key={photo.id} 

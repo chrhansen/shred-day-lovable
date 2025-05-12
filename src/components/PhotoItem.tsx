@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { Calendar, Check, Edit, X } from "lucide-react";
+import { Calendar, Edit, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -101,65 +101,41 @@ export function PhotoItem({ photo, onUpdate, onStatusChange }: PhotoItemProps) {
           </div>
         ) : (
           <>
-            <div className="mb-1">
-              <h3 className="font-medium text-slate-900">{photo.resort}</h3>
-              <p className="text-sm text-slate-500">{format(photo.date, 'MMM d, yyyy')}</p>
-            </div>
-            
             <div className="flex gap-2 mt-2">
-              {photo.status === "pending" ? (
-                <>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex items-center gap-1 border-slate-200"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    <Edit className="h-3.5 w-3.5" />
-                    Edit
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex items-center gap-1 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
-                    onClick={() => onStatusChange(photo.id, "rejected")}
-                  >
-                    <X className="h-3.5 w-3.5" />
-                    Reject
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex items-center gap-1 border-green-200 text-green-600 hover:bg-green-50 hover:text-green-700"
-                    onClick={() => onStatusChange(photo.id, "accepted")}
-                  >
-                    <Check className="h-3.5 w-3.5" />
-                    Accept
-                  </Button>
-                </>
-              ) : (
-                <>
-                  {photo.status === "rejected" && (
-                    <span className="text-sm px-2 py-1 bg-red-100 text-red-700 rounded">
-                      Rejected
-                    </span>
-                  )}
-                  {photo.status === "accepted" && (
-                    <span className="text-sm px-2 py-1 bg-green-100 text-green-700 rounded">
-                      Accepted
-                    </span>
-                  )}
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="text-slate-500"
-                    onClick={() => onStatusChange(photo.id, "pending")}
-                  >
-                    Undo
-                  </Button>
-                </>
-              )}
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="flex items-center gap-1 border-slate-200"
+                onClick={() => setIsEditing(true)}
+              >
+                <Edit className="h-3.5 w-3.5" />
+                Edit
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="flex items-center gap-1 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                onClick={() => onStatusChange(photo.id, "rejected")}
+              >
+                <Trash className="h-3.5 w-3.5" />
+                Delete Image
+              </Button>
             </div>
+            {photo.status === "rejected" && (
+              <div className="mt-2 flex">
+                <span className="text-sm px-2 py-1 bg-red-100 text-red-700 rounded">
+                  Marked for deletion
+                </span>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-slate-500 ml-2"
+                  onClick={() => onStatusChange(photo.id, "pending")}
+                >
+                  Undo
+                </Button>
+              </div>
+            )}
           </>
         )}
       </div>
