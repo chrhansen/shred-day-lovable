@@ -21,3 +21,11 @@ export interface DraftDay {
   status: "pending" | "accepted" | "rejected";
   photos?: string[]; // URLs to photos
 }
+
+export interface SkiPhoto {
+  id: string;
+  url: string;
+  date: Date;
+  resort: string;
+  status: "pending" | "accepted" | "rejected";
+}

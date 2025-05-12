@@ -2,41 +2,48 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Upload } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { DragDropZone } from "@/components/DragDropZone";
-import { DraftDayList } from "@/components/DraftDayList";
-import { type DraftDay } from "@/types/ski";
+import { PhotoList } from "@/components/PhotoList";
+import { type SkiPhoto } from "@/types/ski";
 
-// Placeholder data for draft days - in a real app, these would come from the server
-const sampleDraftDays: DraftDay[] = [
+// Placeholder data for photos - in a real app, these would come from analyzing uploaded photos
+const samplePhotos: SkiPhoto[] = [
   {
-    id: "draft-1",
+    id: "photo-1",
+    url: "/placeholder-1.jpg",
     date: new Date("2025-03-15"),
     resort: "Aspen Snowmass",
-    photoCount: 5,
-    status: "pending",
-    photos: [
-      "/placeholder-1.jpg",
-      "/placeholder-2.jpg",
-      "/placeholder-3.jpg",
-      "/placeholder-4.jpg",
-      "/placeholder-5.jpg",
-    ]
+    status: "pending"
   },
   {
-    id: "draft-2",
+    id: "photo-2",
+    url: "/placeholder-2.jpg",
     date: new Date("2025-03-16"),
     resort: "Vail Resorts",
-    photoCount: 8,
-    status: "pending",
-    photos: [
-      "/placeholder-2.jpg",
-      "/placeholder-3.jpg",
-      "/placeholder-4.jpg",
-      "/placeholder-5.jpg",
-      "/placeholder-1.jpg",
-    ]
+    status: "pending"
+  },
+  {
+    id: "photo-3",
+    url: "/placeholder-3.jpg",
+    date: new Date("2025-03-16"),
+    resort: "Aspen Snowmass",
+    status: "pending"
+  },
+  {
+    id: "photo-4",
+    url: "/placeholder-4.jpg",
+    date: new Date("2025-03-15"),
+    resort: "Breckenridge",
+    status: "pending"
+  },
+  {
+    id: "photo-5",
+    url: "/placeholder-5.jpg",
+    date: new Date("2025-03-14"),
+    resort: "Park City",
+    status: "pending"
   }
 ];
 
@@ -45,7 +52,7 @@ export default function PhotoImportPage() {
   const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [draftDays, setDraftDays] = useState<DraftDay[]>([]);
+  const [photos, setPhotos] = useState<SkiPhoto[]>([]);
 
   const handleFileDrop = useCallback((files: File[]) => {
     if (files.length === 0) return;
@@ -58,7 +65,7 @@ export default function PhotoImportPage() {
         if (prev >= 100) {
           clearInterval(interval);
           setIsUploading(false);
-          setDraftDays(sampleDraftDays);
+          setPhotos(samplePhotos);
           return 100;
         }
         return prev + 10;
@@ -69,41 +76,41 @@ export default function PhotoImportPage() {
     return () => clearInterval(interval);
   }, []);
 
+  const handlePhotoUpdate = useCallback((id: string, updates: Partial<SkiPhoto>) => {
+    setPhotos(prev => 
+      prev.map(photo => photo.id === id ? { ...photo, ...updates } : photo)
+    );
+  }, []);
+
   const handleStatusChange = useCallback((id: string, status: "accepted" | "rejected" | "pending") => {
-    setDraftDays(prev => 
-      prev.map(day => day.id === id ? { ...day, status } : day)
+    setPhotos(prev => 
+      prev.map(photo => photo.id === id ? { ...photo, status } : photo)
     );
   }, []);
 
-  const handleDraftEdit = useCallback((id: string, updatedDay: Partial<DraftDay>) => {
-    setDraftDays(prev => 
-      prev.map(day => day.id === id ? { ...day, ...updatedDay } : day)
-    );
-  }, []);
-
-  const handleSaveDays = useCallback(() => {
-    const acceptedDays = draftDays.filter(day => day.status === "accepted");
+  const handleSavePhotos = useCallback(() => {
+    const acceptedPhotos = photos.filter(photo => photo.status === "accepted");
     
-    // In a real app, this would send the accepted days to the server
-    console.log("Saving accepted days:", acceptedDays);
+    // In a real app, this would send the accepted photos to the server
+    console.log("Saving accepted photos:", acceptedPhotos);
     
     toast({
       title: "Import successful",
-      description: `${acceptedDays.length} ski days have been imported.`
+      description: `${acceptedPhotos.length} photos have been imported.`
     });
     
     navigate("/days");
-  }, [draftDays, navigate, toast]);
+  }, [photos, navigate, toast]);
 
   const handleCancel = useCallback(() => {
-    if (isUploading || draftDays.length > 0) {
+    if (isUploading || photos.length > 0) {
       if (confirm("Are you sure you want to cancel? All progress will be lost.")) {
         navigate("/days");
       }
     } else {
       navigate("/days");
     }
-  }, [isUploading, draftDays.length, navigate]);
+  }, [isUploading, photos.length, navigate]);
 
   return (
     <div className="min-h-screen bg-white p-4">
@@ -118,12 +125,12 @@ export default function PhotoImportPage() {
             Cancel
           </Button>
           
-          {draftDays.length > 0 && draftDays.some(day => day.status === "accepted") && (
+          {photos.length > 0 && photos.some(photo => photo.status === "accepted") && (
             <Button 
-              onClick={handleSaveDays}
+              onClick={handleSavePhotos}
               className="flex items-center gap-2"
             >
-              Save Days
+              Save Photos
             </Button>
           )}
         </div>
@@ -139,13 +146,18 @@ export default function PhotoImportPage() {
           acceptedFileTypes={[".jpg", ".jpeg", ".png"]}
         />
         
-        {draftDays.length > 0 && (
+        {photos.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-xl font-semibold mb-4">Review Imported Days</h2>
-            <DraftDayList
-              draftDays={draftDays}
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Review Imported Photos</h2>
+              <div className="text-sm text-slate-500">
+                {photos.filter(p => p.status === "accepted").length} selected
+              </div>
+            </div>
+            <PhotoList
+              photos={photos}
+              onPhotoUpdate={handlePhotoUpdate}
               onStatusChange={handleStatusChange}
-              onDraftEdit={handleDraftEdit}
             />
           </div>
         )}
