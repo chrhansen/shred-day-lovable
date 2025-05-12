@@ -8,38 +8,82 @@ import { DragDropZone } from "@/components/DragDropZone";
 import { PhotoList } from "@/components/PhotoList";
 import { type SkiPhoto } from "@/types/ski";
 
-// Placeholder data for photos - in a real app, these would come from analyzing uploaded photos
+// Extended sample data to demonstrate grouping
 const samplePhotos: SkiPhoto[] = [
+  // Group 1: Photos 1-3 (same date and resort)
   {
     id: "photo-1",
     url: "/placeholder-1.jpg",
-    date: new Date("2025-03-15"),
+    date: new Date("2025-03-20"),
     resort: "Aspen Snowmass",
     status: "pending"
   },
   {
     id: "photo-2",
     url: "/placeholder-2.jpg",
-    date: new Date("2025-03-16"),
-    resort: "Vail Resorts",
+    date: new Date("2025-03-20"),
+    resort: "Aspen Snowmass",
     status: "pending"
   },
   {
     id: "photo-3",
     url: "/placeholder-3.jpg",
-    date: new Date("2025-03-16"),
+    date: new Date("2025-03-20"),
     resort: "Aspen Snowmass",
     status: "pending"
   },
+  
+  // Group 2: Photo 4 (unique date)
   {
     id: "photo-4",
     url: "/placeholder-4.jpg",
+    date: new Date("2025-03-18"),
+    resort: "Vail Resorts",
+    status: "pending"
+  },
+  
+  // Group 3: Photo 5 (unique date, same resort as photo 4)
+  {
+    id: "photo-5",
+    url: "/placeholder-5.jpg",
+    date: new Date("2025-03-16"),
+    resort: "Vail Resorts", 
+    status: "pending"
+  },
+  
+  // Group 4: Photos 6-7 (same date and resort)
+  {
+    id: "photo-6",
+    url: "/placeholder-1.jpg", // Reusing placeholder images
     date: new Date("2025-03-15"),
     resort: "Breckenridge",
     status: "pending"
   },
   {
-    id: "photo-5",
+    id: "photo-7",
+    url: "/placeholder-2.jpg",
+    date: new Date("2025-03-15"),
+    resort: "Breckenridge",
+    status: "pending"
+  },
+  
+  // Group 5: Photos 8-10 (same date and resort)
+  {
+    id: "photo-8",
+    url: "/placeholder-3.jpg",
+    date: new Date("2025-03-14"),
+    resort: "Park City",
+    status: "pending"
+  },
+  {
+    id: "photo-9",
+    url: "/placeholder-4.jpg",
+    date: new Date("2025-03-14"),
+    resort: "Park City",
+    status: "pending"
+  },
+  {
+    id: "photo-10",
     url: "/placeholder-5.jpg",
     date: new Date("2025-03-14"),
     resort: "Park City",
