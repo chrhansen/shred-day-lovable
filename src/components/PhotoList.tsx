@@ -10,9 +10,18 @@ interface PhotoListProps {
 }
 
 export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListProps) {
-  // Sort photos by date (descending) and then by resort name
+  // Separate stripped photos from regular photos
+  const strippedPhotos = useMemo(() => {
+    return photos.filter(photo => photo.isStripped);
+  }, [photos]);
+
+  const regularPhotos = useMemo(() => {
+    return photos.filter(photo => !photo.isStripped);
+  }, [photos]);
+
+  // Sort regular photos by date (descending) and then by resort name
   const sortedPhotos = useMemo(() => {
-    return [...photos].sort((a, b) => {
+    return [...regularPhotos].sort((a, b) => {
       // First sort by date (descending)
       const dateCompare = b.date.getTime() - a.date.getTime();
       
@@ -23,7 +32,7 @@ export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListPr
       
       return dateCompare;
     });
-  }, [photos]);
+  }, [regularPhotos]);
 
   // Group photos by date and resort
   const groupedPhotos = useMemo(() => {
@@ -55,11 +64,37 @@ export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListPr
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-slate-100">
+      {/* Stripped Photos Section */}
+      {strippedPhotos.length > 0 && (
+        <div className="mb-6">
+          <div className="bg-amber-50 p-3 border-l-4 border-amber-400">
+            <h3 className="text-sm font-medium text-amber-800">
+              Photos with Missing Data
+            </h3>
+            <p className="text-xs text-amber-600">
+              {strippedPhotos.length} {strippedPhotos.length === 1 ? 'photo' : 'photos'} with missing EXIF data
+            </p>
+          </div>
+          
+          <div className="border-l-4 border-amber-100 pl-3">
+            {strippedPhotos.map((photo) => (
+              <PhotoItem 
+                key={photo.id} 
+                photo={photo} 
+                onUpdate={onPhotoUpdate}
+                onStatusChange={onStatusChange}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Regular Photos Section */}
       {groupedPhotos.length > 0 ? (
         <div>
           {groupedPhotos.map((group) => (
             <div key={group.id} className="mb-4">
-              {/* Group header - show for all groups regardless of size */}
+              {/* Group header for all groups */}
               <div className="bg-purple-50 p-3 border-l-4 border-purple-400">
                 <h3 className="text-sm font-medium text-purple-800">
                   Ski Day: {group.resort} • {new Date(group.dateStr).toLocaleDateString()}
@@ -82,6 +117,10 @@ export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListPr
               </div>
             </div>
           ))}
+        </div>
+      ) : regularPhotos.length > 0 ? (
+        <div className="p-3">
+          <p className="text-slate-500">All photos are in the Missing Data section.</p>
         </div>
       ) : (
         <div className="text-center p-8">

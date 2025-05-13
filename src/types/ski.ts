@@ -28,4 +28,5 @@ export interface SkiPhoto {
   date: Date;
   resort: string;
   status: "pending" | "accepted" | "rejected";
+  isStripped?: boolean; // Flag for photos with stripped EXIF data
 }

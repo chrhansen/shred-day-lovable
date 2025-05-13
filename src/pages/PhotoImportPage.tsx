@@ -8,8 +8,26 @@ import { DragDropZone } from "@/components/DragDropZone";
 import { PhotoList } from "@/components/PhotoList";
 import { type SkiPhoto } from "@/types/ski";
 
-// Extended sample data to demonstrate grouping
+// Extended sample data to demonstrate grouping and stripped EXIF data
 const samplePhotos: SkiPhoto[] = [
+  // Stripped EXIF data photos
+  {
+    id: "photo-strip-1",
+    url: "/placeholder-1.jpg",
+    date: new Date(), // Today's date as placeholder
+    resort: "",
+    status: "pending",
+    isStripped: true
+  },
+  {
+    id: "photo-strip-2",
+    url: "/placeholder-2.jpg",
+    date: new Date(),
+    resort: "",
+    status: "pending",
+    isStripped: true
+  },
+  
   // Group 1: Photos 1-3 (same date and resort)
   {
     id: "photo-1",
