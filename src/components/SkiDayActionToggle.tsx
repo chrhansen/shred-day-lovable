@@ -1,6 +1,6 @@
 
 import React from "react";
-import { PlusCircle, FolderPlus, XCircle, Settings } from "lucide-react";
+import { PlusCircle, FolderPlus, XCircle, ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,7 +46,8 @@ export function SkiDayActionToggle({
             className="border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 flex items-center gap-2"
           >
             {currentAction.icon}
-            {currentAction.text}
+            <span className="mr-1">{currentAction.text}</span>
+            <ChevronDown className="h-4 w-4 opacity-70" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48 bg-white">
