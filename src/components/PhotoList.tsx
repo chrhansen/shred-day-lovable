@@ -1,7 +1,14 @@
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { type SkiPhoto } from "@/types/ski";
 import { PhotoItem } from "@/components/PhotoItem";
+import { SkiDayActionToggle } from "@/components/SkiDayActionToggle";
+
+type SkiDayAction = "add" | "create" | "skip";
+
+interface GroupActions {
+  [key: string]: SkiDayAction;
+}
 
 interface PhotoListProps {
   photos: SkiPhoto[];
@@ -10,6 +17,9 @@ interface PhotoListProps {
 }
 
 export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListProps) {
+  // Track selected actions for each group
+  const [groupActions, setGroupActions] = useState<GroupActions>({});
+
   // Separate stripped photos from regular photos
   const strippedPhotos = useMemo(() => {
     return photos.filter(photo => photo.isStripped);
@@ -57,10 +67,32 @@ export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListPr
         id: key,
         dateStr,
         resort,
-        photos
+        photos,
+        // Simulate if a ski day exists already (for demo purposes)
+        // In a real app, this would come from the backend
+        skiDayExists: Math.random() > 0.3 // 70% chance a ski day exists
       };
     });
   }, [sortedPhotos]);
+
+  // Initialize default actions for each group
+  useMemo(() => {
+    const initialActions: GroupActions = {};
+    
+    groupedPhotos.forEach(group => {
+      initialActions[group.id] = group.skiDayExists ? "add" : "create";
+    });
+    
+    setGroupActions(initialActions);
+  }, [groupedPhotos]);
+
+  // Handle action change for a group
+  const handleActionChange = (groupId: string, action: SkiDayAction) => {
+    setGroupActions(prev => ({
+      ...prev,
+      [groupId]: action
+    }));
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-slate-100">
@@ -96,12 +128,22 @@ export function PhotoList({ photos, onPhotoUpdate, onStatusChange }: PhotoListPr
             <div key={group.id} className="mb-4">
               {/* Group header for all groups */}
               <div className="bg-purple-50 p-3 border-l-4 border-purple-400">
-                <h3 className="text-sm font-medium text-purple-800">
-                  Ski Day: {group.resort} • {new Date(group.dateStr).toLocaleDateString()}
-                </h3>
-                <p className="text-xs text-purple-600">
-                  {group.photos.length} {group.photos.length === 1 ? 'photo' : 'photos'} in this ski day
-                </p>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+                  <div>
+                    <h3 className="text-sm font-medium text-purple-800">
+                      Ski Day: {group.resort} • {new Date(group.dateStr).toLocaleDateString()}
+                    </h3>
+                    <p className="text-xs text-purple-600">
+                      {group.photos.length} {group.photos.length === 1 ? 'photo' : 'photos'} in this ski day
+                    </p>
+                  </div>
+                  
+                  <SkiDayActionToggle 
+                    skiDayExists={group.skiDayExists}
+                    selectedAction={groupActions[group.id] || (group.skiDayExists ? "add" : "create")}
+                    onActionChange={(action) => handleActionChange(group.id, action)}
+                  />
+                </div>
               </div>
               
               {/* Photos in this group */}
