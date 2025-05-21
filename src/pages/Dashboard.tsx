@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { skiService } from "@/services/skiService";
+import { Logo } from "@/components/Logo";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -17,7 +18,9 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-white p-4">
       <div className="max-w-md mx-auto space-y-8 pt-8">
-        <h1 className="text-2xl font-bold text-slate-800 mb-8 text-center">My Ski Journal</h1>
+        <div className="flex justify-center">
+          <Logo className="text-xl" />
+        </div>
         <div className="grid grid-cols-1 gap-6">
           <div onClick={() => navigate("/days")} className="cursor-pointer">
             <StatsCard label="Days Skied" value={stats?.totalDays ?? '...'} />
