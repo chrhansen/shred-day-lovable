@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import LogDay from "./pages/LogDay";
 import DaysPage from "./pages/DaysPage";
 import PhotoImportPage from "./pages/PhotoImportPage";
+import AccountPage from "./pages/AccountPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/log" element={<LogDay />} />
           <Route path="/days" element={<DaysPage />} />
           <Route path="/import" element={<PhotoImportPage />} />
+          <Route path="/account" element={<AccountPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

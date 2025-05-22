@@ -1,5 +1,5 @@
 
-import { Plus } from "lucide-react";
+import { Plus, User } from "lucide-react";
 import { StatsCard } from "@/components/StatsCard";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +35,15 @@ export default function Dashboard() {
         >
           <Plus className="mr-2 h-5 w-5" />
           Log a day
+        </Button>
+        
+        <Button
+          variant="outline"
+          onClick={() => navigate("/account")}
+          className="w-full mt-4"
+        >
+          <User className="mr-2 h-4 w-4" />
+          My Account
         </Button>
       </div>
     </div>
