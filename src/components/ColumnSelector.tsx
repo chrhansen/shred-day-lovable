@@ -87,35 +87,39 @@ export function ColumnSelector({ columns, onColumnsChange }: ColumnSelectorProps
               Select and reorder columns for your CSV export
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
-            {columns.map((column, index) => (
-              <div
-                key={column.id}
-                className={`flex items-center space-x-3 p-2 rounded border transition-colors ${
-                  draggedIndex === index ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200 hover:bg-gray-50'
-                }`}
-                draggable
-                onDragStart={(e) => handleDragStart(e, index)}
-                onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, index)}
-              >
-                <GripVertical className="h-4 w-4 text-gray-400 cursor-grab active:cursor-grabbing" />
-                <Checkbox
-                  id={column.id}
-                  checked={column.enabled}
-                  onCheckedChange={() => handleColumnToggle(column.id)}
-                />
-                <label 
-                  htmlFor={column.id}
-                  className="text-sm font-medium cursor-pointer flex-1"
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {columns.map((column, index) => (
+                <div
+                  key={column.id}
+                  className={`flex items-center space-x-2 p-3 rounded-lg border transition-all cursor-pointer ${
+                    draggedIndex === index 
+                      ? 'bg-blue-50 border-blue-200 shadow-md' 
+                      : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300'
+                  } ${column.enabled ? 'ring-1 ring-blue-200' : ''}`}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  onDragOver={handleDragOver}
+                  onDrop={(e) => handleDrop(e, index)}
                 >
-                  {column.label}
-                </label>
-              </div>
-            ))}
+                  <GripVertical className="h-4 w-4 text-gray-400 cursor-grab active:cursor-grabbing" />
+                  <Checkbox
+                    id={column.id}
+                    checked={column.enabled}
+                    onCheckedChange={() => handleColumnToggle(column.id)}
+                  />
+                  <label 
+                    htmlFor={column.id}
+                    className="text-sm font-medium cursor-pointer whitespace-nowrap"
+                  >
+                    {column.label}
+                  </label>
+                </div>
+              ))}
+            </div>
             
             {enabledCount === 0 && (
-              <div className="text-sm text-red-600 text-center py-2">
+              <div className="text-sm text-red-600 text-center py-4 mt-4">
                 Please select at least one column to export.
               </div>
             )}
