@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, addYears, subYears, subDays } from "date-fns";
@@ -8,6 +7,7 @@ import { Logo } from "@/components/Logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { ColumnSelector, ColumnConfig } from "@/components/ColumnSelector";
 
 interface Season {
   id: string;
@@ -23,6 +23,15 @@ export default function ExportPage() {
   
   // Mock season start date - in a real app, this would come from user settings
   const seasonStartDate = new Date(2024, 8, 1); // September 1, 2024
+  
+  // Column configuration
+  const [columns, setColumns] = useState<ColumnConfig[]>([
+    { id: 'date', label: 'Date', enabled: true },
+    { id: 'resort', label: 'Resort', enabled: true },
+    { id: 'ski', label: 'Ski', enabled: true },
+    { id: 'activity', label: 'Activity', enabled: true },
+    { id: 'season', label: 'Season', enabled: false },
+  ]);
   
   // Generate seasons data
   const generateSeasons = (): Season[] => {
@@ -71,6 +80,8 @@ export default function ExportPage() {
   };
 
   const handleExport = async () => {
+    const enabledColumns = columns.filter(col => col.enabled);
+    
     if (selectedSeasons.length === 0) {
       toast({
         title: "No seasons selected",
@@ -80,11 +91,20 @@ export default function ExportPage() {
       return;
     }
 
+    if (enabledColumns.length === 0) {
+      toast({
+        title: "No columns selected",
+        description: "Please select at least one column to export.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsExporting(true);
     
     try {
-      // Mock CSV generation - in a real app, this would fetch data from the API
-      const csvData = generateMockCSV(selectedSeasons);
+      // Generate CSV with selected columns
+      const csvData = generateMockCSV(selectedSeasons, enabledColumns);
       
       // Create and download CSV file
       const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
@@ -99,7 +119,7 @@ export default function ExportPage() {
 
       toast({
         title: "Export successful",
-        description: `Exported ${selectedSeasons.length} season(s) to CSV file.`,
+        description: `Exported ${selectedSeasons.length} season(s) with ${enabledColumns.length} column(s) to CSV file.`,
       });
     } catch (error) {
       toast({
@@ -112,8 +132,8 @@ export default function ExportPage() {
     }
   };
 
-  const generateMockCSV = (seasonIds: string[]): string => {
-    const headers = ['Date', 'Resort', 'Ski', 'Activity', 'Season'];
+  const generateMockCSV = (seasonIds: string[], enabledColumns: ColumnConfig[]): string => {
+    const headers = enabledColumns.map(col => col.label);
     const rows = [headers.join(',')];
     
     // Mock data generation
@@ -131,14 +151,15 @@ export default function ExportPage() {
             Math.random() * (season.endDate.getTime() - season.startDate.getTime())
           );
           
-          const row = [
-            format(randomDate, 'yyyy-MM-dd'),
-            resorts[Math.floor(Math.random() * resorts.length)],
-            skis[Math.floor(Math.random() * skis.length)],
-            activities[Math.floor(Math.random() * activities.length)],
-            season.label
-          ];
+          const rowData: Record<string, string> = {
+            date: format(randomDate, 'yyyy-MM-dd'),
+            resort: resorts[Math.floor(Math.random() * resorts.length)],
+            ski: skis[Math.floor(Math.random() * skis.length)],
+            activity: activities[Math.floor(Math.random() * activities.length)],
+            season: season.label
+          };
           
+          const row = enabledColumns.map(col => rowData[col.id] || '');
           rows.push(row.join(','));
         }
       }
@@ -151,6 +172,8 @@ export default function ExportPage() {
     const season = seasons.find(s => s.id === seasonId);
     return total + (season?.dayCount || 0);
   }, 0);
+
+  const enabledColumnsCount = columns.filter(col => col.enabled).length;
 
   return (
     <div className="min-h-screen bg-white p-4">
@@ -214,10 +237,15 @@ export default function ExportPage() {
           )}
         </div>
 
+        <ColumnSelector 
+          columns={columns} 
+          onColumnsChange={setColumns}
+        />
+
         <Button 
           onClick={handleExport}
           className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg transition-all hover:shadow-xl"
-          disabled={selectedSeasons.length === 0 || isExporting}
+          disabled={selectedSeasons.length === 0 || enabledColumnsCount === 0 || isExporting}
         >
           <Download className="mr-2 h-5 w-5" />
           {isExporting ? "Exporting..." : "Download CSV"}
