@@ -1,7 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Upload } from "lucide-react";
+import { ChevronLeft, Upload, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SkiDayItem } from "@/components/SkiDayItem";
 
@@ -45,14 +45,24 @@ export default function DaysPage() {
             Back
           </Button>
           
-          <Button 
-            variant="secondary"
-            onClick={() => navigate("/import")}
-            className="flex items-center gap-2"
-          >
-            <Upload className="h-4 w-4" />
-            Import Photos
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="secondary"
+              onClick={() => navigate("/export")}
+              className="flex items-center gap-2"
+            >
+              <Download className="h-4 w-4" />
+              Export CSV
+            </Button>
+            <Button 
+              variant="secondary"
+              onClick={() => navigate("/import")}
+              className="flex items-center gap-2"
+            >
+              <Upload className="h-4 w-4" />
+              Import Photos
+            </Button>
+          </div>
         </div>
 
         <h1 className="text-2xl font-bold text-slate-800 mb-8 text-center">Ski Days</h1>
