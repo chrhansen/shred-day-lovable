@@ -29,8 +29,8 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
-        <div className="p-6 text-center border-b">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="p-6 text-center border-b bg-white">
           <div className="flex justify-center mb-4">
             <Logo />
           </div>
@@ -40,24 +40,24 @@ export default function SignUpPage() {
           </p>
         </div>
 
-        <Tabs defaultValue="signup" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mx-6 mt-6">
+        <Tabs defaultValue="signup" className="w-full bg-white">
+          <TabsList className="grid w-full grid-cols-2 m-0 rounded-none bg-gray-50 h-12">
             <TabsTrigger 
               value="signin"
-              className="text-sm font-medium"
+              className="text-sm font-medium rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none"
               onClick={() => navigate("/signin")}
             >
               Sign In
             </TabsTrigger>
             <TabsTrigger 
               value="signup" 
-              className="text-sm font-medium"
+              className="text-sm font-medium rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none"
             >
               Sign Up
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="signup" className="p-6 space-y-4">
+          <TabsContent value="signup" className="p-6 space-y-4 bg-white mt-0">
             <form onSubmit={handleSignUp} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
