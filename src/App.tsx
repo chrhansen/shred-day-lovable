@@ -10,6 +10,8 @@ import DaysPage from "./pages/DaysPage";
 import PhotoImportPage from "./pages/PhotoImportPage";
 import AccountPage from "./pages/AccountPage";
 import ExportPage from "./pages/ExportPage";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/log" element={<LogDay />} />
           <Route path="/days" element={<DaysPage />} />
           <Route path="/import" element={<PhotoImportPage />} />
