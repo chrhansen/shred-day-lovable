@@ -213,7 +213,7 @@ export default function SignUpPage() {
               Sign up with Google
             </Button>
           </TabsContent>
-        </tabs>
+        </Tabs>
       </div>
     </div>
   );
