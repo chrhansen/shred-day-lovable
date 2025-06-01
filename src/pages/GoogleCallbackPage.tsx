@@ -17,28 +17,36 @@ export default function GoogleCallbackPage() {
       try {
         // Get the authorization code or error from URL params
         const code = searchParams.get('code');
-        const error = searchParams.get('error');
+        const errorParam = searchParams.get('error');
         const errorDescription = searchParams.get('error_description');
 
-        if (error) {
-          throw new Error(errorDescription || `OAuth error: ${error}`);
+        // Check for explicit OAuth errors first
+        if (errorParam) {
+          throw new Error(errorDescription || `OAuth error: ${errorParam}`);
         }
 
+        // If no code and no error, this might be a direct visit to the callback URL
         if (!code) {
-          throw new Error('No authorization code received from Google');
+          // Give it a moment to see if parameters are still loading
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          // Check again after the delay
+          const codeRetry = searchParams.get('code');
+          if (!codeRetry) {
+            throw new Error('No authorization code received from Google');
+          }
         }
 
         console.log('Processing Google OAuth callback with code:', code);
 
-        // Here you would typically exchange the code for tokens
-        // For now, we'll simulate the process
+        // Simulate the authentication process
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         // TODO: Replace with actual API call to exchange code for session
         // const response = await fetch('/api/auth/google/callback', {
         //   method: 'POST',
         //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({ code })
+        //   body: JSON.stringify({ code: code || searchParams.get('code') })
         // });
         
         // if (!response.ok) {
