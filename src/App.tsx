@@ -12,6 +12,7 @@ import AccountPage from "./pages/AccountPage";
 import ExportPage from "./pages/ExportPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
+import GoogleCallbackPage from "./pages/GoogleCallbackPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/" element={<Dashboard />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
           <Route path="/log" element={<LogDay />} />
           <Route path="/days" element={<DaysPage />} />
           <Route path="/import" element={<PhotoImportPage />} />
