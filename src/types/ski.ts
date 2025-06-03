@@ -22,6 +22,15 @@ export interface DraftDay {
   photos?: string[]; // URLs to photos
 }
 
+export interface TextDraftDay {
+  id: string;
+  date: Date;
+  resort: string;
+  originalText: string;
+  action: "merge" | "duplicate" | "skip";
+  status: "pending" | "processed";
+}
+
 export interface SkiPhoto {
   id: string;
   url: string;

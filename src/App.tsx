@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import LogDay from "./pages/LogDay";
 import DaysPage from "./pages/DaysPage";
 import PhotoImportPage from "./pages/PhotoImportPage";
+import TextImportPage from "./pages/TextImportPage";
 import AccountPage from "./pages/AccountPage";
 import ExportPage from "./pages/ExportPage";
 import SignInPage from "./pages/SignInPage";
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/log" element={<LogDay />} />
           <Route path="/days" element={<DaysPage />} />
           <Route path="/import" element={<PhotoImportPage />} />
+          <Route path="/import/text" element={<TextImportPage />} />
           <Route path="/export" element={<ExportPage />} />
           <Route path="/account" element={<AccountPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
