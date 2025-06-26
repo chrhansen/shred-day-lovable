@@ -28,7 +28,7 @@ export function SkiDayItem({ day }: SkiDayItemProps) {
           {day.photoCount && day.photoCount > 0 && (
             <Badge 
               variant="secondary" 
-              className="absolute -bottom-1 -right-1 h-5 min-w-5 px-1 text-xs bg-slate-800 text-white hover:bg-slate-800"
+              className="absolute bottom-1 right-1 h-4 min-w-4 px-1.5 text-xs bg-black/60 text-white hover:bg-black/60 backdrop-blur-sm border-0"
             >
               {day.photoCount}
             </Badge>
