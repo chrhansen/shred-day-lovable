@@ -1,3 +1,4 @@
+
 import { format } from "date-fns";
 import { useState } from "react";
 import { type SkiDay } from "@/types/ski";
@@ -25,7 +26,7 @@ export function SkiDayItem({ day }: SkiDayItemProps) {
             </AvatarFallback>
           </Avatar>
           {day.photoCount && day.photoCount > 0 && (
-            <div className="absolute bottom-1 right-1 bg-black/40 text-white text-xs px-1.5 py-0.5 rounded min-w-[20px] text-center">
+            <div className="absolute bottom-0 right-0 bg-black/40 text-white text-xs px-1.5 py-0.5 rounded-br-lg min-w-[20px] text-center">
               {day.photoCount}
             </div>
           )}
