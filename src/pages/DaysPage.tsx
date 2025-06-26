@@ -11,21 +11,24 @@ const sampleDays = [
     date: new Date("2025-01-15"),
     resort: "Whistler Blackcomb",
     ski: "Line Blade",
-    activity: "Resort Skiing"
+    activity: "Resort Skiing",
+    photoCount: 8
   },
   {
     id: "2",
     date: new Date("2025-02-01"),
     resort: "Revelstoke",
     ski: "Line Blade",
-    activity: "Backcountry"
+    activity: "Backcountry",
+    photoCount: 12
   },
   {
     id: "3",
     date: new Date("2025-02-14"),
     resort: "Fernie Alpine",
     ski: "Black Crows Corvus",
-    activity: "Resort Skiing"
+    activity: "Resort Skiing",
+    photoCount: 5
   }
 ];
 

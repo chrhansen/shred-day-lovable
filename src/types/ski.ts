@@ -1,10 +1,10 @@
-
 export interface SkiDay {
   id?: string;
   date: Date;
   resort: string;
   ski: string;
   activity: string;
+  photoCount?: number; // Number of photos for this ski day
 }
 
 export interface SkiStats {
