@@ -1,10 +1,9 @@
-
 import { format } from "date-fns";
 import { useState } from "react";
 import { type SkiDay } from "@/types/ski";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { SkiDayDetail } from "@/components/SkiDayDetail";
+import { Badge } from "@/components/ui/badge";
 
 interface SkiDayItemProps {
   day: SkiDay;
@@ -26,14 +25,12 @@ export function SkiDayItem({ day }: SkiDayItemProps) {
             </AvatarFallback>
           </Avatar>
           {day.photoCount && day.photoCount > 0 && (
-            <Badge 
-              variant="secondary" 
-              className="absolute bottom-1 right-1 h-4 min-w-4 px-1.5 text-xs bg-black/60 text-white hover:bg-black/60 backdrop-blur-sm border-0"
-            >
+            <div className="absolute bottom-1 right-1 bg-black/40 text-white text-xs px-1.5 py-0.5 rounded min-w-[20px] text-center">
               {day.photoCount}
-            </Badge>
+            </div>
           )}
         </div>
+        
         <div className="flex-1 min-w-0">
           <div className="font-medium text-slate-900">{day.resort}</div>
           <div className="text-sm text-slate-500">{format(day.date, 'MMM d, yyyy')}</div>
