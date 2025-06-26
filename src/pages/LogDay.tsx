@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
@@ -92,8 +93,9 @@ export default function LogDay() {
               modifiersStyles={{
                 hasSkiDay: {
                   fontWeight: 'bold',
-                  textDecoration: 'underline',
-                  color: '#3b82f6'
+                  color: '#3b82f6',
+                  backgroundColor: '#eff6ff',
+                  borderRadius: '6px'
                 }
               }}
             />
