@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,11 @@ const ACTIVITIES = ["Friends", "Training"];
 const sampleExistingDays = [
   { id: "1", date: new Date("2025-01-15"), resort: "Whistler Blackcomb", ski: "Line Blade", activity: "Resort Skiing" },
   { id: "2", date: new Date("2025-02-01"), resort: "Revelstoke", ski: "Line Blade", activity: "Backcountry" },
-  { id: "3", date: new Date("2025-02-14"), resort: "Fernie Alpine", ski: "Black Crows Corvus", activity: "Resort Skiing" }
+  { id: "3", date: new Date("2025-02-14"), resort: "Fernie Alpine", ski: "Black Crows Corvus", activity: "Resort Skiing" },
+  { id: "4", date: new Date("2025-06-05"), resort: "Stubai", ski: "Fischer RC4 GS", activity: "Training" },
+  { id: "5", date: new Date("2025-06-12"), resort: "Kühtai", ski: "Atomic G9", activity: "Friends" },
+  { id: "6", date: new Date("2025-06-18"), resort: "Axamer Lizum", ski: "Kästle Twin tip", activity: "Training" },
+  { id: "7", date: new Date("2025-06-25"), resort: "Stubai", ski: "Fischer RC4 GS", activity: "Friends" }
 ];
 
 export default function LogDay() {
