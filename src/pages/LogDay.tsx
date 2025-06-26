@@ -5,13 +5,21 @@ import { Button } from "@/components/ui/button";
 import { SelectionPill } from "@/components/SelectionPill";
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { skiService } from "@/services/skiService";
 import { toast } from "sonner";
+import { isSameDay } from "date-fns";
 
 const RESORTS = ["Stubai", "Kühtai", "Axamer Lizum"];
 const SKIS = ["Fischer RC4 GS", "Atomic G9", "Kästle Twin tip"];
 const ACTIVITIES = ["Friends", "Training"];
+
+// Sample data for demonstration - in real app this would come from the service
+const sampleExistingDays = [
+  { id: "1", date: new Date("2025-01-15"), resort: "Whistler Blackcomb", ski: "Line Blade", activity: "Resort Skiing" },
+  { id: "2", date: new Date("2025-02-01"), resort: "Revelstoke", ski: "Line Blade", activity: "Backcountry" },
+  { id: "3", date: new Date("2025-02-14"), resort: "Fernie Alpine", ski: "Black Crows Corvus", activity: "Resort Skiing" }
+];
 
 export default function LogDay() {
   const navigate = useNavigate();
@@ -20,6 +28,9 @@ export default function LogDay() {
   const [selectedResort, setSelectedResort] = useState<string>("");
   const [selectedSki, setSelectedSki] = useState<string>("");
   const [selectedActivity, setSelectedActivity] = useState<string>("");
+
+  // In a real app, this would fetch from the service
+  const existingDays = sampleExistingDays;
 
   const { mutate: saveDay, isPending } = useMutation({
     mutationFn: skiService.logDay,
@@ -47,6 +58,11 @@ export default function LogDay() {
     });
   };
 
+  // Function to check if a date has existing ski days
+  const hasSkiDay = (checkDate: Date) => {
+    return existingDays.some(day => isSameDay(day.date, checkDate));
+  };
+
   return (
     <div className="min-h-screen bg-white p-4 flex justify-center">
       <div className="w-full max-w-md space-y-6">
@@ -67,6 +83,16 @@ export default function LogDay() {
               selected={date}
               onSelect={(date) => date && setDate(date)}
               className="rounded-lg mx-auto"
+              modifiers={{
+                hasSkiDay: (date) => hasSkiDay(date)
+              }}
+              modifiersStyles={{
+                hasSkiDay: {
+                  fontWeight: 'bold',
+                  textDecoration: 'underline',
+                  color: '#3b82f6'
+                }
+              }}
             />
           </div>
         </div>

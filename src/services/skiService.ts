@@ -10,5 +10,10 @@ export const skiService = {
   async logDay(day: Omit<SkiDay, 'id'>): Promise<SkiDay> {
     // Cursor will implement this to send to your API
     throw new Error('Not implemented');
+  },
+
+  async getExistingDays(): Promise<SkiDay[]> {
+    // Cursor will implement this to fetch existing ski days from your API
+    throw new Error('Not implemented');
   }
 };
