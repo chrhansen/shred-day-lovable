@@ -93,6 +93,17 @@ export default function DaysPage() {
         </div>
 
         <h1 className="text-2xl font-bold text-slate-800 mb-8 text-center">Ski Days</h1>
+        
+        {/* Demo button to show highlighting effect */}
+        <div className="mb-4 text-center">
+          <Button 
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/days#day_2')}
+          >
+            Demo: Highlight Day 2
+          </Button>
+        </div>
 
         <div className="bg-white rounded-lg shadow-sm border border-slate-100">
           {sampleDays.map((day, index) => (
