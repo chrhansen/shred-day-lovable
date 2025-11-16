@@ -38,10 +38,12 @@ export default function LogDay() {
 
   const { mutate: saveDay, isPending } = useMutation({
     mutationFn: skiService.logDay,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['skiStats'] });
       toast.success("Ski day logged successfully!");
-      navigate('/');
+      // Navigate to /days with the day ID as anchor
+      const dayId = data?.id || `day_${Date.now()}`;
+      navigate(`/days#day_${dayId}`);
     },
     onError: () => {
       toast.error("Failed to log ski day");

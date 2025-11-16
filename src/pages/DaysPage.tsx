@@ -1,9 +1,10 @@
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Upload, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SkiDayItem } from "@/components/SkiDayItem";
+import { useEffect, useState } from "react";
 
 const sampleDays = [
   {
@@ -34,6 +35,29 @@ const sampleDays = [
 
 export default function DaysPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [highlightedDayId, setHighlightedDayId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if there's a hash in the URL
+    if (location.hash) {
+      const dayId = location.hash.substring(1); // Remove the # character
+      const element = document.getElementById(dayId);
+      
+      if (element) {
+        // Scroll to the element
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Highlight the day
+        setHighlightedDayId(dayId);
+        
+        // Remove highlight after 2 seconds
+        setTimeout(() => {
+          setHighlightedDayId(null);
+        }, 2000);
+      }
+    }
+  }, [location.hash]);
 
   return (
     <div className="min-h-screen bg-white p-4">
@@ -73,7 +97,10 @@ export default function DaysPage() {
         <div className="bg-white rounded-lg shadow-sm border border-slate-100">
           {sampleDays.map((day, index) => (
             <div key={day.id}>
-              <SkiDayItem day={day} />
+              <SkiDayItem 
+                day={day} 
+                isHighlighted={highlightedDayId === `day_${day.id}`}
+              />
               {index < sampleDays.length - 1 && <Separator />}
             </div>
           ))}

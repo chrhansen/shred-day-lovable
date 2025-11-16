@@ -9,15 +9,19 @@ import { Badge } from "@/components/ui/badge";
 
 interface SkiDayItemProps {
   day: SkiDay;
+  isHighlighted?: boolean;
 }
 
-export function SkiDayItem({ day }: SkiDayItemProps) {
+export function SkiDayItem({ day, isHighlighted = false }: SkiDayItemProps) {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   return (
     <>
       <div 
-        className="flex items-center gap-4 p-4 cursor-pointer hover:bg-slate-50 transition-colors"
+        id={`day_${day.id}`}
+        className={`flex items-center gap-4 p-4 cursor-pointer hover:bg-slate-50 transition-all duration-500 ${
+          isHighlighted ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
+        }`}
         onClick={() => setIsDetailOpen(true)}
       >
         <div className="relative">
