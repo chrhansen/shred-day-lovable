@@ -5,11 +5,12 @@ import { ChevronLeft, Upload, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SkiDayItem } from "@/components/SkiDayItem";
 import { useEffect, useState } from "react";
+import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, format, isWithinInterval, isSameMonth, subMonths } from "date-fns";
 
 const sampleDays = [
   {
     id: "1",
-    date: new Date("2025-01-15"),
+    date: new Date("2025-11-16"),
     resort: "Whistler Blackcomb",
     ski: "Line Blade",
     activity: "Resort Skiing",
@@ -17,26 +18,126 @@ const sampleDays = [
   },
   {
     id: "2",
-    date: new Date("2025-02-01"),
+    date: new Date("2025-11-15"),
+    resort: "Mount Baker",
+    ski: "Black Crows Corvus",
+    activity: "Backcountry",
+    photoCount: 15
+  },
+  {
+    id: "3",
+    date: new Date("2025-11-05"),
+    resort: "Crystal Mountain",
+    ski: "Line Blade",
+    activity: "Resort Skiing",
+    photoCount: 6
+  },
+  {
+    id: "4",
+    date: new Date("2025-11-02"),
+    resort: "Stevens Pass",
+    ski: "Faction Candide 2.0",
+    activity: "Resort Skiing",
+    photoCount: 10
+  },
+  {
+    id: "5",
+    date: new Date("2025-10-28"),
     resort: "Revelstoke",
     ski: "Line Blade",
     activity: "Backcountry",
     photoCount: 12
   },
   {
-    id: "3",
-    date: new Date("2025-02-14"),
+    id: "6",
+    date: new Date("2025-10-15"),
     resort: "Fernie Alpine",
     ski: "Black Crows Corvus",
     activity: "Resort Skiing",
     photoCount: 5
+  },
+  {
+    id: "7",
+    date: new Date("2025-09-20"),
+    resort: "Timberline Lodge",
+    ski: "Line Blade",
+    activity: "Summer Skiing",
+    photoCount: 4
+  },
+  {
+    id: "8",
+    date: new Date("2025-07-10"),
+    resort: "Whistler Blackcomb",
+    ski: "Faction Candide 2.0",
+    activity: "Summer Skiing",
+    photoCount: 7
+  },
+  {
+    id: "9",
+    date: new Date("2025-03-22"),
+    resort: "Jackson Hole",
+    ski: "Black Crows Corvus",
+    activity: "Resort Skiing",
+    photoCount: 20
+  },
+  {
+    id: "10",
+    date: new Date("2025-02-14"),
+    resort: "Alta",
+    ski: "Line Blade",
+    activity: "Resort Skiing",
+    photoCount: 18
   }
 ];
+
+function groupDaysByPeriod(days: typeof sampleDays) {
+  const now = new Date();
+  const thisWeekStart = startOfWeek(now, { weekStartsOn: 1 });
+  const thisWeekEnd = endOfWeek(now, { weekStartsOn: 1 });
+  const thisMonthStart = startOfMonth(now);
+  const thisMonthEnd = endOfMonth(now);
+  const lastMonth = subMonths(now, 1);
+  const lastMonthStart = startOfMonth(lastMonth);
+  const lastMonthEnd = endOfMonth(lastMonth);
+
+  const groups: { [key: string]: typeof sampleDays } = {
+    'This week': [],
+    'This month': [],
+    'Last month': [],
+  };
+
+  days.forEach(day => {
+    const dayDate = new Date(day.date);
+    
+    if (isWithinInterval(dayDate, { start: thisWeekStart, end: thisWeekEnd })) {
+      groups['This week'].push(day);
+    } else if (isWithinInterval(dayDate, { start: thisMonthStart, end: thisMonthEnd })) {
+      groups['This month'].push(day);
+    } else if (isWithinInterval(dayDate, { start: lastMonthStart, end: lastMonthEnd })) {
+      groups['Last month'].push(day);
+    } else {
+      const monthYear = format(dayDate, 'MMMM yyyy');
+      if (!groups[monthYear]) {
+        groups[monthYear] = [];
+      }
+      groups[monthYear].push(day);
+    }
+  });
+
+  // Remove empty groups and sort remaining groups
+  return Object.entries(groups)
+    .filter(([_, days]) => days.length > 0)
+    .map(([period, days]) => ({
+      period,
+      days: days.sort((a, b) => b.date.getTime() - a.date.getTime())
+    }));
+}
 
 export default function DaysPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [highlightedDayId, setHighlightedDayId] = useState<string | null>(null);
+  const groupedDays = groupDaysByPeriod(sampleDays);
 
   useEffect(() => {
     // Check if there's a hash in the URL
@@ -105,14 +206,21 @@ export default function DaysPage() {
           </Button>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-slate-100">
-          {sampleDays.map((day, index) => (
-            <div key={day.id}>
-              <SkiDayItem 
-                day={day} 
-                isHighlighted={highlightedDayId === `day_${day.id}`}
-              />
-              {index < sampleDays.length - 1 && <Separator />}
+        <div className="space-y-8">
+          {groupedDays.map((group, groupIndex) => (
+            <div key={group.period}>
+              <h2 className="text-lg font-semibold text-slate-700 mb-3 px-1">{group.period}</h2>
+              <div className="bg-white rounded-lg shadow-sm border border-slate-100">
+                {group.days.map((day, dayIndex) => (
+                  <div key={day.id}>
+                    <SkiDayItem 
+                      day={day} 
+                      isHighlighted={highlightedDayId === `day_${day.id}`}
+                    />
+                    {dayIndex < group.days.length - 1 && <Separator />}
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
