@@ -5,7 +5,8 @@ import {
   Image, 
   FileText, 
   Download, 
-  User 
+  User,
+  Plug
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
@@ -34,6 +35,7 @@ const importExportItems = [
 ];
 
 const accountItems = [
+  { title: "Integrations", url: "/integrations", icon: Plug },
   { title: "Account", url: "/account", icon: User },
 ];
 
