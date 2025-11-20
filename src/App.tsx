@@ -13,6 +13,7 @@ import PhotoImportPage from "./pages/PhotoImportPage";
 import TextImportPage from "./pages/TextImportPage";
 import AccountPage from "./pages/AccountPage";
 import ExportPage from "./pages/ExportPage";
+import IntegrationsPage from "./pages/IntegrationsPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import GoogleCallbackPage from "./pages/GoogleCallbackPage";
@@ -32,6 +33,7 @@ const AppContent = () => (
     <Route path="/import" element={<PhotoImportPage />} />
     <Route path="/import/text" element={<TextImportPage />} />
     <Route path="/export" element={<ExportPage />} />
+    <Route path="/integrations" element={<IntegrationsPage />} />
     <Route path="/account" element={<AccountPage />} />
     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
     <Route path="*" element={<NotFound />} />
