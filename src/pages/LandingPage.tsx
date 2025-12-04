@@ -1,4 +1,4 @@
-import { ArrowRight, BarChart3, Download, Share2, Camera, FileSpreadsheet } from "lucide-react";
+import { ArrowRight, Mountain, Calendar, BarChart3, Share2, Download, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Logo";
@@ -6,166 +6,240 @@ import { Logo } from "@/components/Logo";
 export default function LandingPage() {
   const navigate = useNavigate();
 
-  const stats = [
-    "Most used skis",
-    "Most rides in a week", 
-    "Most visited resort",
-    "Total vertical feet",
-    "Favorite weather conditions",
-    "Season progression"
+  const problems = [
+    "Forgetting which days you skied last season",
+    "No easy way to track your gear usage",
+    "Scattered notes across apps and photos",
+    "Missing out on seeing your progress",
+  ];
+
+  const features = [
+    {
+      icon: Calendar,
+      title: "Log Every Day",
+      description: "Quick entries with photos, conditions, and gear. Takes seconds.",
+    },
+    {
+      icon: BarChart3,
+      title: "See Your Stats",
+      description: "Total days, vertical feet, favorite resorts, gear breakdown.",
+    },
+    {
+      icon: Share2,
+      title: "Share Your Season",
+      description: "Beautiful share links to show off your adventures.",
+    },
+    {
+      icon: Download,
+      title: "Own Your Data",
+      description: "Import from photos. Export to CSV. No lock-in.",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center space-y-8 max-w-4xl mx-auto">
-          <div className="flex justify-center">
-            <Logo className="text-2xl" />
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent leading-tight">
-            Track Your Season
-            <br />
-            <span className="text-slate-700">The Simple Way</span>
-          </h1>
-          
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            For skiers, snowboarders, and telemark enthusiasts who want to remember every powder day, 
-            track their progress, and share their adventures.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <div className="min-h-screen bg-background">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
+          <Logo className="text-xl" />
+          <div className="flex items-center gap-3">
             <Button 
-              onClick={() => navigate("/signup")}
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all"
-            >
-              Start Tracking Free
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            
-            <Button 
-              variant="outline" 
+              variant="ghost" 
               onClick={() => navigate("/signin")}
-              size="lg"
-              className="px-8 py-6 text-lg border-2 hover:bg-slate-50"
+              className="text-muted-foreground hover:text-foreground"
             >
               Sign In
             </Button>
+            <Button 
+              onClick={() => navigate("/signup")}
+              className="bg-primary hover:bg-primary/90"
+            >
+              Get Started
+            </Button>
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Features Section */}
-      <div className="container mx-auto px-4 py-20">
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          
-          {/* Feature 1: Simple Tracking */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100">
-            <div className="bg-blue-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-              <Camera className="h-8 w-8 text-blue-600" />
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-6">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center space-y-8">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              <Sparkles className="h-4 w-4" />
+              Free to use forever
             </div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-4">Simple Tracking</h3>
-            <p className="text-slate-600 leading-relaxed">
-              Log your days in seconds. Add photos, notes, gear, and conditions. 
-              The fastest way to capture your season memories.
+
+            {/* Main Headline */}
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+              <span className="text-foreground">Remember</span>
+              <br />
+              <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                every powder day
+              </span>
+            </h1>
+
+            {/* Subheadline */}
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              The simplest way to track your ski season. Log days, see stats, 
+              and never forget another epic run.
             </p>
-          </div>
 
-          {/* Feature 2: Insightful Stats */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100">
-            <div className="bg-indigo-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-              <BarChart3 className="h-8 w-8 text-indigo-600" />
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+              <Button 
+                onClick={() => navigate("/signup")}
+                size="lg"
+                className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
+              >
+                Start Tracking Free
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => navigate("/signin")}
+                size="lg"
+                className="h-14 px-8 text-lg border-2"
+              >
+                I have an account
+              </Button>
             </div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-4">Review Your Stats</h3>
-            <div className="space-y-2">
-              {stats.map((stat, index) => (
-                <div key={index} className="flex items-center text-slate-600">
-                  <div className="w-2 h-2 bg-indigo-400 rounded-full mr-3"></div>
-                  {stat}
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Feature 3: No Lock-in */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100">
-            <div className="bg-emerald-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-              <Download className="h-8 w-8 text-emerald-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-4">Your Data, Your Way</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              Import from photos or spreadsheets. Export to CSV anytime. 
-              No lock-in, complete data ownership.
+            {/* Social Proof */}
+            <p className="text-sm text-muted-foreground pt-4">
+              Join skiers & snowboarders tracking their seasons
             </p>
-            <div className="flex gap-2">
-              <div className="flex items-center text-sm text-slate-500">
-                <Camera className="h-4 w-4 mr-1" />
-                Photos
-              </div>
-              <div className="flex items-center text-sm text-slate-500">
-                <FileSpreadsheet className="h-4 w-4 mr-1" />
-                CSV
-              </div>
-            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Share Feature */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 py-20">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <div className="bg-white/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto">
-              <Share2 className="h-10 w-10 text-white" />
-            </div>
-            
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Beautiful Share Links
+      {/* Problem Section */}
+      <section className="py-20 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Sound familiar?
             </h2>
-            
-            <p className="text-xl text-blue-100 leading-relaxed">
-              Create stunning visual summaries of your season. 
-              Share your achievements with friends or keep them private.
-            </p>
-            
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 max-w-md mx-auto">
-              <div className="text-white/80 text-sm mb-2">shred.day/share/your-season</div>
-              <div className="bg-white/20 rounded-lg p-4 text-left">
-                <div className="text-white font-semibold">Alex's 2024/25 Season</div>
-                <div className="text-blue-100 text-sm mt-1">42 days • 15 resorts • 127,340 ft vertical</div>
+          </div>
+          
+          <div className="grid sm:grid-cols-2 gap-4">
+            {problems.map((problem, index) => (
+              <div 
+                key={index}
+                className="flex items-start gap-3 p-5 rounded-xl bg-background border border-border/50 hover:border-primary/30 transition-colors"
+              >
+                <div className="w-6 h-6 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-destructive text-sm">✕</span>
+                </div>
+                <p className="text-foreground/80">{problem}</p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* CTA Section */}
-      <div className="container mx-auto px-4 py-20 text-center">
-        <div className="max-w-2xl mx-auto space-y-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-800">
-            Ready to Track Your Season?
+      {/* Solution/Features Section */}
+      <section className="py-24 px-6">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+              One app. Your whole season.
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Built for skiers who want to remember every day on the mountain.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {features.map((feature, index) => (
+              <div 
+                key={index}
+                className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+              >
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                  <feature.icon className="h-7 w-7 text-primary" />
+                </div>
+                <h3 className="text-2xl font-semibold text-foreground mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Visual Preview Section */}
+      <section className="py-20 px-6 bg-gradient-to-b from-primary/5 to-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="relative">
+            {/* Mock App Preview */}
+            <div className="bg-card rounded-2xl border border-border shadow-2xl shadow-primary/10 overflow-hidden">
+              <div className="p-4 border-b border-border bg-muted/30">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-destructive/50"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                </div>
+              </div>
+              <div className="p-8 md:p-12">
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="bg-muted/50 rounded-xl p-6 text-center">
+                    <Mountain className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <div className="text-4xl font-bold text-foreground">47</div>
+                    <div className="text-sm text-muted-foreground">Days This Season</div>
+                  </div>
+                  <div className="bg-muted/50 rounded-xl p-6 text-center">
+                    <BarChart3 className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <div className="text-4xl font-bold text-foreground">312K</div>
+                    <div className="text-sm text-muted-foreground">Vertical Feet</div>
+                  </div>
+                  <div className="bg-muted/50 rounded-xl p-6 text-center">
+                    <Calendar className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <div className="text-4xl font-bold text-foreground">12</div>
+                    <div className="text-sm text-muted-foreground">Resorts Visited</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Decorative elements */}
+            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-r from-primary/20 via-transparent to-primary/20 blur-3xl rounded-full"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-24 px-6">
+        <div className="container mx-auto max-w-3xl text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Ready to track your season?
           </h2>
-          
-          <p className="text-xl text-slate-600">
-            Join thousands of skiers and snowboarders already tracking their adventures.
+          <p className="text-xl text-muted-foreground mb-10">
+            Free to use. No credit card required. Your data, always.
           </p>
-          
           <Button 
             onClick={() => navigate("/signup")}
             size="lg"
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-12 py-6 text-xl shadow-lg hover:shadow-xl transition-all"
+            className="h-16 px-12 text-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
           >
             Get Started Free
-            <ArrowRight className="ml-2 h-6 w-6" />
+            <ArrowRight className="ml-3 h-6 w-6" />
           </Button>
-          
-          <p className="text-sm text-slate-500">
-            No credit card required • Free forever plan available
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-6 border-t border-border">
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <Logo className="text-lg" />
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} shred.day — Track your season.
           </p>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }
