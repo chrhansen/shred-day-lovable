@@ -21,23 +21,29 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const AppContent = () => (
-  <Routes>
-    <Route path="/" element={<LandingPage />} />
-    <Route path="/signin" element={<SignInPage />} />
-    <Route path="/signup" element={<SignUpPage />} />
-    <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
-    <Route path="/dashboard" element={<Dashboard />} />
-    <Route path="/log" element={<LogDay />} />
-    <Route path="/days" element={<DaysPage />} />
-    <Route path="/import" element={<PhotoImportPage />} />
-    <Route path="/import/text" element={<TextImportPage />} />
-    <Route path="/export" element={<ExportPage />} />
-    <Route path="/integrations" element={<IntegrationsPage />} />
-    <Route path="/account" element={<AccountPage />} />
-    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-    <Route path="*" element={<NotFound />} />
-  </Routes>
+const AppLayout = () => (
+  <SidebarProvider>
+    <div className="min-h-screen w-full relative">
+      <AppSidebar />
+      <main className="w-full min-h-screen flex flex-col">
+        <header className="sticky top-0 z-10 h-14 border-b bg-background flex items-center px-4">
+          <SidebarTrigger />
+        </header>
+        <div className="flex-1">
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/log" element={<LogDay />} />
+            <Route path="/days" element={<DaysPage />} />
+            <Route path="/import" element={<PhotoImportPage />} />
+            <Route path="/import/text" element={<TextImportPage />} />
+            <Route path="/export" element={<ExportPage />} />
+            <Route path="/integrations" element={<IntegrationsPage />} />
+            <Route path="/account" element={<AccountPage />} />
+          </Routes>
+        </div>
+      </main>
+    </div>
+  </SidebarProvider>
 );
 
 const App = () => (
@@ -46,19 +52,26 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <SidebarProvider>
-          <div className="min-h-screen w-full relative">
-            <AppSidebar />
-            <main className="w-full min-h-screen flex flex-col">
-              <header className="sticky top-0 z-10 h-14 border-b bg-background flex items-center px-4">
-                <SidebarTrigger />
-              </header>
-              <div className="flex-1">
-                <AppContent />
-              </div>
-            </main>
-          </div>
-        </SidebarProvider>
+        <Routes>
+          {/* Public routes without sidebar */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
+          
+          {/* App routes with sidebar */}
+          <Route path="/dashboard" element={<AppLayout />} />
+          <Route path="/log" element={<AppLayout />} />
+          <Route path="/days" element={<AppLayout />} />
+          <Route path="/import" element={<AppLayout />} />
+          <Route path="/import/text" element={<AppLayout />} />
+          <Route path="/export" element={<AppLayout />} />
+          <Route path="/integrations" element={<AppLayout />} />
+          <Route path="/account" element={<AppLayout />} />
+          
+          {/* Catch-all */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
