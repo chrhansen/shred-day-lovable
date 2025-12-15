@@ -1,4 +1,4 @@
-import { ArrowRight, Mountain, Calendar, BarChart3, Share2, Download, Sparkles } from "lucide-react";
+import { ArrowRight, Mountain, Calendar, BarChart3, Share2, Download, Sparkles, FileSpreadsheet, Snowflake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Logo";
@@ -22,7 +22,7 @@ export default function LandingPage() {
     {
       icon: BarChart3,
       title: "See Your Stats",
-      description: "Total days, vertical feet, favorite resorts, gear breakdown.",
+      description: "Total days, resorts visited, gear breakdown, and more.",
     },
     {
       icon: Share2,
@@ -33,6 +33,11 @@ export default function LandingPage() {
       icon: Download,
       title: "Own Your Data",
       description: "Import from photos. Export to CSV. No lock-in.",
+    },
+    {
+      icon: FileSpreadsheet,
+      title: "Google Sheets Sync",
+      description: "Automatic sync to Google Sheets. Your days, always up to date.",
     },
   ];
 
@@ -67,7 +72,7 @@ export default function LandingPage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
               <Sparkles className="h-4 w-4" />
-              Free to use forever
+              Your ski journal
             </div>
 
             {/* Main Headline */}
@@ -192,9 +197,9 @@ export default function LandingPage() {
                     <div className="text-sm text-muted-foreground">Days This Season</div>
                   </div>
                   <div className="bg-muted/50 rounded-xl p-6 text-center">
-                    <BarChart3 className="h-8 w-8 text-primary mx-auto mb-3" />
-                    <div className="text-4xl font-bold text-foreground">312K</div>
-                    <div className="text-sm text-muted-foreground">Vertical Feet</div>
+                    <Snowflake className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <div className="text-4xl font-bold text-foreground">5</div>
+                    <div className="text-sm text-muted-foreground">Skis Used</div>
                   </div>
                   <div className="bg-muted/50 rounded-xl p-6 text-center">
                     <Calendar className="h-8 w-8 text-primary mx-auto mb-3" />
