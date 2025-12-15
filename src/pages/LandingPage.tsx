@@ -76,12 +76,6 @@ export default function LandingPage() {
       <section className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="space-y-8 text-center lg:text-left">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
-              <Sparkles className="h-4 w-4" />
-              Your ski journal
-            </div>
-
             {/* Main Headline Row - H1 + Phone Mockups */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
               {/* H1 */}
