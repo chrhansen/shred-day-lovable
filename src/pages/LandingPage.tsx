@@ -108,8 +108,6 @@ export default function LandingPage() {
                   I have an account
                 </Button>
               </div>
-
-              <p className="text-sm text-muted-foreground pt-4">Join skiers & snowboarders tracking their seasons</p>
             </div>
 
             {/* Right - Phone Mockup */}
