@@ -1,4 +1,14 @@
-import { ArrowRight, Mountain, Calendar, BarChart3, Share2, Download, Sparkles, FileSpreadsheet, Snowflake } from "lucide-react";
+import {
+  ArrowRight,
+  Mountain,
+  Calendar,
+  BarChart3,
+  Share2,
+  Download,
+  Sparkles,
+  FileSpreadsheet,
+  Snowflake,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Logo";
@@ -48,17 +58,14 @@ export default function LandingPage() {
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
           <Logo className="text-xl" />
           <div className="flex items-center gap-3">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               onClick={() => navigate("/signin")}
               className="text-muted-foreground hover:text-foreground"
             >
               Sign In
             </Button>
-            <Button 
-              onClick={() => navigate("/signup")}
-              className="bg-primary hover:bg-primary/90"
-            >
+            <Button onClick={() => navigate("/signup")} className="bg-primary hover:bg-primary/90">
               Get Started
             </Button>
           </div>
@@ -104,7 +111,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Phone Mockup 2 - Behind */}
-                <div className="absolute left-24 md:left-28 top-8 w-36 md:w-44 -rotate-6">
+                <div className="absolute left-24 md:left-28 top-8 w-36 md:w-44">
                   <div className="bg-card rounded-[2rem] border-4 border-foreground/10 shadow-xl shadow-primary/10 overflow-hidden">
                     <div className="bg-foreground/10 h-4 flex items-center justify-center">
                       <div className="w-14 h-2 bg-foreground/20 rounded-full"></div>
@@ -125,13 +132,12 @@ export default function LandingPage() {
 
             {/* Subheadline */}
             <p className="text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              The simplest way to track your ski season. Log days, see stats, 
-              and never forget another epic run.
+              The simplest way to track your ski season. Log days, see stats, and never forget another epic run.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4">
-              <Button 
+              <Button
                 onClick={() => navigate("/signup")}
                 size="lg"
                 className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
@@ -139,8 +145,8 @@ export default function LandingPage() {
                 Start Tracking Free
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => navigate("/signin")}
                 size="lg"
                 className="h-14 px-8 text-lg border-2"
@@ -150,9 +156,7 @@ export default function LandingPage() {
             </div>
 
             {/* Social Proof */}
-            <p className="text-sm text-muted-foreground pt-4">
-              Join skiers & snowboarders tracking their seasons
-            </p>
+            <p className="text-sm text-muted-foreground pt-4">Join skiers & snowboarders tracking their seasons</p>
           </div>
         </div>
       </section>
@@ -161,14 +165,12 @@ export default function LandingPage() {
       <section className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Sound familiar?
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Sound familiar?</h2>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 gap-4">
             {problems.map((problem, index) => (
-              <div 
+              <div
                 key={index}
                 className="flex items-start gap-3 p-5 rounded-xl bg-background border border-border/50 hover:border-primary/30 transition-colors"
               >
@@ -186,9 +188,7 @@ export default function LandingPage() {
       <section className="py-24 px-6">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-              One app. Your whole season.
-            </h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">One app. Your whole season.</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Built for skiers who want to remember every day on the mountain.
             </p>
@@ -196,19 +196,15 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {features.map((feature, index) => (
-              <div 
+              <div
                 key={index}
                 className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                   <feature.icon className="h-7 w-7 text-primary" />
                 </div>
-                <h3 className="text-2xl font-semibold text-foreground mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  {feature.description}
-                </p>
+                <h3 className="text-2xl font-semibold text-foreground mb-3">{feature.title}</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -258,13 +254,11 @@ export default function LandingPage() {
       {/* Final CTA Section */}
       <section className="py-24 px-6">
         <div className="container mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Ready to track your season?
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Ready to track your season?</h2>
           <p className="text-xl text-muted-foreground mb-10">
             Free to use. No credit card required. Your data, always.
           </p>
-          <Button 
+          <Button
             onClick={() => navigate("/signup")}
             size="lg"
             className="h-16 px-12 text-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
@@ -279,9 +273,7 @@ export default function LandingPage() {
       <footer className="py-8 px-6 border-t border-border">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <Logo className="text-lg" />
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} shred.day — Track your season.
-          </p>
+          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} shred.day — Track your season.</p>
         </div>
       </footer>
     </div>
