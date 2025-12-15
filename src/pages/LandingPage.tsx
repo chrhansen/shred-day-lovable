@@ -110,21 +110,6 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                {/* Phone Mockup 2 - Behind */}
-                <div className="absolute left-24 md:left-28 top-8 w-36 md:w-44">
-                  <div className="bg-card rounded-[2rem] border-4 border-foreground/10 shadow-xl shadow-primary/10 overflow-hidden">
-                    <div className="bg-foreground/10 h-4 flex items-center justify-center">
-                      <div className="w-14 h-2 bg-foreground/20 rounded-full"></div>
-                    </div>
-                    <div className="aspect-[9/16] bg-muted flex items-center justify-center">
-                      <span className="text-muted-foreground text-xs">Screenshot 2</span>
-                    </div>
-                    <div className="h-4 bg-foreground/10 flex items-center justify-center">
-                      <div className="w-14 h-1 bg-foreground/30 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Decorative glow */}
                 <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-3xl rounded-full"></div>
               </div>
