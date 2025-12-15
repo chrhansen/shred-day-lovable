@@ -77,7 +77,7 @@ export default function LandingPage() {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16">
             {/* Left Content */}
-            <div className="space-y-8 text-center lg:text-left flex-1">
+            <div className="space-y-8 text-left flex-1">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="text-foreground">Remember</span>
                 <br />
@@ -86,11 +86,11 @@ export default function LandingPage() {
                 </span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-relaxed">
                 The simplest way to track your ski season. Log days, see stats, and never forget another epic run.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4">
+              <div className="flex flex-row gap-4 justify-start items-center pt-4">
                 <Button
                   onClick={() => navigate("/signup")}
                   size="lg"
