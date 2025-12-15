@@ -86,27 +86,6 @@ export default function LandingPage() {
                   every powder day
                 </span>
               </h1>
-
-              {/* Phone Mockups - Inline with H1 */}
-              <div className="relative flex justify-center lg:justify-start items-center mt-8 lg:mt-0 flex-shrink-0">
-                {/* Phone Mockup 1 - Front */}
-                <div className="relative z-10 w-40 md:w-48">
-                  <div className="bg-card rounded-[2rem] border-4 border-foreground/10 shadow-2xl shadow-primary/20 overflow-hidden">
-                    <div className="bg-foreground/10 h-5 flex items-center justify-center">
-                      <div className="w-16 h-3 bg-foreground/20 rounded-full"></div>
-                    </div>
-                    <div className="aspect-[9/16] bg-muted flex items-center justify-center">
-                      <span className="text-muted-foreground text-xs">Screenshot 1</span>
-                    </div>
-                    <div className="h-5 bg-foreground/10 flex items-center justify-center">
-                      <div className="w-16 h-1 bg-foreground/30 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Decorative glow */}
-                <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-3xl rounded-full"></div>
-              </div>
             </div>
 
             {/* Subheadline */}
@@ -136,6 +115,26 @@ export default function LandingPage() {
 
             {/* Social Proof */}
             <p className="text-sm text-muted-foreground pt-4">Join skiers & snowboarders tracking their seasons</p>
+            {/* Phone Mockups - Inline with H1 */}
+            <div className="relative flex justify-center lg:justify-start items-center mt-8 lg:mt-0 flex-shrink-0">
+              {/* Phone Mockup 1 - Front */}
+              <div className="relative z-10 w-40 md:w-48">
+                <div className="bg-card rounded-[2rem] border-4 border-foreground/10 shadow-2xl shadow-primary/20 overflow-hidden">
+                  <div className="bg-foreground/10 h-5 flex items-center justify-center">
+                    <div className="w-16 h-3 bg-foreground/20 rounded-full"></div>
+                  </div>
+                  <div className="aspect-[9/16] bg-muted flex items-center justify-center">
+                    <span className="text-muted-foreground text-xs">Screenshot 1</span>
+                  </div>
+                  <div className="h-5 bg-foreground/10 flex items-center justify-center">
+                    <div className="w-16 h-1 bg-foreground/30 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Decorative glow */}
+              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-3xl rounded-full"></div>
+            </div>
           </div>
         </div>
       </section>
