@@ -75,50 +75,46 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className="space-y-8 text-center lg:text-left">
-            {/* Main Headline Row - H1 + Phone Mockups */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
-              {/* H1 */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight flex-shrink-0">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16">
+            {/* Left Content */}
+            <div className="space-y-8 text-center lg:text-left flex-1">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="text-foreground">Remember</span>
                 <br />
                 <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
                   every powder day
                 </span>
               </h1>
+
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                The simplest way to track your ski season. Log days, see stats, and never forget another epic run.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4">
+                <Button
+                  onClick={() => navigate("/signup")}
+                  size="lg"
+                  className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
+                >
+                  Start Tracking Free
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => navigate("/signin")}
+                  size="lg"
+                  className="h-14 px-8 text-lg border-2"
+                >
+                  I have an account
+                </Button>
+              </div>
+
+              <p className="text-sm text-muted-foreground pt-4">Join skiers & snowboarders tracking their seasons</p>
             </div>
 
-            {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              The simplest way to track your ski season. Log days, see stats, and never forget another epic run.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4">
-              <Button
-                onClick={() => navigate("/signup")}
-                size="lg"
-                className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
-              >
-                Start Tracking Free
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => navigate("/signin")}
-                size="lg"
-                className="h-14 px-8 text-lg border-2"
-              >
-                I have an account
-              </Button>
-            </div>
-
-            {/* Social Proof */}
-            <p className="text-sm text-muted-foreground pt-4">Join skiers & snowboarders tracking their seasons</p>
-            {/* Phone Mockups - Inline with H1 */}
-            <div className="relative flex justify-center lg:justify-start items-center mt-8 lg:mt-0 flex-shrink-0">
-              {/* Phone Mockup 1 - Front */}
-              <div className="relative z-10 w-40 md:w-48">
+            {/* Right - Phone Mockup */}
+            <div className="relative flex justify-center items-center mt-12 lg:mt-0 flex-shrink-0">
+              <div className="relative z-10 w-48 md:w-56">
                 <div className="bg-card rounded-[2rem] border-4 border-foreground/10 shadow-2xl shadow-primary/20 overflow-hidden">
                   <div className="bg-foreground/10 h-5 flex items-center justify-center">
                     <div className="w-16 h-3 bg-foreground/20 rounded-full"></div>
