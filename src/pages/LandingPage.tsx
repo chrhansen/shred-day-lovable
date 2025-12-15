@@ -67,53 +67,98 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center space-y-8">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
-              <Sparkles className="h-4 w-4" />
-              Your ski journal
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column - Text Content */}
+            <div className="space-y-8 text-center lg:text-left">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                <Sparkles className="h-4 w-4" />
+                Your ski journal
+              </div>
+
+              {/* Main Headline */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                <span className="text-foreground">Remember</span>
+                <br />
+                <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                  every powder day
+                </span>
+              </h1>
+
+              {/* Subheadline */}
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                The simplest way to track your ski season. Log days, see stats, 
+                and never forget another epic run.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4">
+                <Button 
+                  onClick={() => navigate("/signup")}
+                  size="lg"
+                  className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
+                >
+                  Start Tracking Free
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate("/signin")}
+                  size="lg"
+                  className="h-14 px-8 text-lg border-2"
+                >
+                  I have an account
+                </Button>
+              </div>
+
+              {/* Social Proof */}
+              <p className="text-sm text-muted-foreground pt-4">
+                Join skiers & snowboarders tracking their seasons
+              </p>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
-              <span className="text-foreground">Remember</span>
-              <br />
-              <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
-                every powder day
-              </span>
-            </h1>
+            {/* Right Column - Phone Mockups */}
+            <div className="relative flex justify-center lg:justify-end items-center">
+              {/* Phone Mockup 1 - Front */}
+              <div className="relative z-10 w-56 md:w-64 lg:w-72">
+                <div className="bg-card rounded-[2.5rem] border-4 border-foreground/10 shadow-2xl shadow-primary/20 overflow-hidden">
+                  {/* Phone Notch */}
+                  <div className="bg-foreground/10 h-6 flex items-center justify-center">
+                    <div className="w-20 h-4 bg-foreground/20 rounded-full"></div>
+                  </div>
+                  {/* Screen Content - Placeholder */}
+                  <div className="aspect-[9/16] bg-muted flex items-center justify-center">
+                    <span className="text-muted-foreground text-sm">Screenshot 1</span>
+                  </div>
+                  {/* Bottom Bar */}
+                  <div className="h-6 bg-foreground/10 flex items-center justify-center">
+                    <div className="w-24 h-1 bg-foreground/30 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
 
-            {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              The simplest way to track your ski season. Log days, see stats, 
-              and never forget another epic run.
-            </p>
+              {/* Phone Mockup 2 - Behind */}
+              <div className="absolute right-0 lg:right-8 top-12 md:top-16 w-48 md:w-56 lg:w-64 -rotate-6">
+                <div className="bg-card rounded-[2.5rem] border-4 border-foreground/10 shadow-xl shadow-primary/10 overflow-hidden">
+                  {/* Phone Notch */}
+                  <div className="bg-foreground/10 h-5 flex items-center justify-center">
+                    <div className="w-16 h-3 bg-foreground/20 rounded-full"></div>
+                  </div>
+                  {/* Screen Content - Placeholder */}
+                  <div className="aspect-[9/16] bg-muted flex items-center justify-center">
+                    <span className="text-muted-foreground text-xs">Screenshot 2</span>
+                  </div>
+                  {/* Bottom Bar */}
+                  <div className="h-5 bg-foreground/10 flex items-center justify-center">
+                    <div className="w-20 h-1 bg-foreground/30 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <Button 
-                onClick={() => navigate("/signup")}
-                size="lg"
-                className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
-              >
-                Start Tracking Free
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => navigate("/signin")}
-                size="lg"
-                className="h-14 px-8 text-lg border-2"
-              >
-                I have an account
-              </Button>
+              {/* Decorative glow */}
+              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-primary/20 blur-3xl rounded-full"></div>
             </div>
-
-            {/* Social Proof */}
-            <p className="text-sm text-muted-foreground pt-4">
-              Join skiers & snowboarders tracking their seasons
-            </p>
           </div>
         </div>
       </section>
