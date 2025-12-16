@@ -112,7 +112,7 @@ export default function LandingPage() {
 
             {/* Right - Phone Mockup */}
             <div className="relative flex justify-center items-center mt-12 lg:mt-0 flex-shrink-0">
-              <div className="relative z-10 w-48 md:w-56">
+              <div className="relative z-10 w-48 md:w-56 rotate-[15deg]">
                 <div className="bg-card rounded-[2rem] border-4 border-foreground/10 shadow-2xl shadow-primary/20 overflow-hidden">
                   <div className="bg-foreground/10 h-5 flex items-center justify-center">
                     <div className="w-16 h-3 bg-foreground/20 rounded-full"></div>
