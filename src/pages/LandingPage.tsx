@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Logo";
+import appScreenshot from "@/assets/app-screenshot.png";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -117,9 +118,11 @@ export default function LandingPage() {
                   <div className="bg-foreground/10 h-5 flex items-center justify-center">
                     <div className="w-16 h-3 bg-foreground/20 rounded-full"></div>
                   </div>
-                  <div className="aspect-[9/16] bg-muted flex items-center justify-center">
-                    <span className="text-muted-foreground text-xs">Screenshot 1</span>
-                  </div>
+                  <img 
+                    src={appScreenshot} 
+                    alt="Shred.day app showing ski day logs" 
+                    className="w-full h-full object-cover object-top"
+                  />
                   <div className="h-5 bg-foreground/10 flex items-center justify-center">
                     <div className="w-16 h-1 bg-foreground/30 rounded-full"></div>
                   </div>
