@@ -10,84 +10,54 @@ import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, format, 
 const sampleDays = [
   {
     id: "1",
-    date: new Date("2025-11-16"),
+    date: new Date("2025-12-26"),
     resort: "Whistler Blackcomb",
     ski: "Line Blade",
     activity: "Resort Skiing",
-    photoCount: 8
+    photoCount: 8,
+    photos: ["/placeholder-1.jpg", "/placeholder-2.jpg"],
+    shared_at: null,
   },
   {
     id: "2",
-    date: new Date("2025-11-15"),
+    date: new Date("2025-12-24"),
     resort: "Mount Baker",
     ski: "Black Crows Corvus",
     activity: "Backcountry",
-    photoCount: 15
+    photoCount: 15,
+    photos: ["/placeholder-3.jpg", "/placeholder-4.jpg", "/placeholder-5.jpg"],
+    shared_at: new Date("2025-12-24T10:00:00Z"),
   },
   {
     id: "3",
-    date: new Date("2025-11-05"),
+    date: new Date("2025-12-20"),
     resort: "Crystal Mountain",
     ski: "Line Blade",
     activity: "Resort Skiing",
-    photoCount: 6
+    photoCount: 6,
+    photos: ["/placeholder-1.jpg"],
+    shared_at: null,
   },
   {
     id: "4",
-    date: new Date("2025-11-02"),
+    date: new Date("2025-12-15"),
     resort: "Stevens Pass",
     ski: "Faction Candide 2.0",
     activity: "Resort Skiing",
-    photoCount: 10
+    photoCount: 10,
+    photos: ["/placeholder-2.jpg", "/placeholder-3.jpg"],
+    shared_at: null,
   },
   {
     id: "5",
-    date: new Date("2025-10-28"),
+    date: new Date("2025-11-28"),
     resort: "Revelstoke",
     ski: "Line Blade",
     activity: "Backcountry",
-    photoCount: 12
+    photoCount: 12,
+    photos: ["/placeholder-4.jpg", "/placeholder-5.jpg"],
+    shared_at: new Date("2025-11-28T14:30:00Z"),
   },
-  {
-    id: "6",
-    date: new Date("2025-10-15"),
-    resort: "Fernie Alpine",
-    ski: "Black Crows Corvus",
-    activity: "Resort Skiing",
-    photoCount: 5
-  },
-  {
-    id: "7",
-    date: new Date("2025-09-20"),
-    resort: "Timberline Lodge",
-    ski: "Line Blade",
-    activity: "Summer Skiing",
-    photoCount: 4
-  },
-  {
-    id: "8",
-    date: new Date("2025-07-10"),
-    resort: "Whistler Blackcomb",
-    ski: "Faction Candide 2.0",
-    activity: "Summer Skiing",
-    photoCount: 7
-  },
-  {
-    id: "9",
-    date: new Date("2025-03-22"),
-    resort: "Jackson Hole",
-    ski: "Black Crows Corvus",
-    activity: "Resort Skiing",
-    photoCount: 20
-  },
-  {
-    id: "10",
-    date: new Date("2025-02-14"),
-    resort: "Alta",
-    ski: "Line Blade",
-    activity: "Resort Skiing",
-    photoCount: 18
-  }
 ];
 
 function groupDaysByPeriod(days: typeof sampleDays) {
