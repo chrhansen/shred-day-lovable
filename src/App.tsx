@@ -17,6 +17,7 @@ import IntegrationsPage from "./pages/IntegrationsPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import GoogleCallbackPage from "./pages/GoogleCallbackPage";
+import SharedDayPage from "./pages/SharedDayPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
+          <Route path="/s/:dayId" element={<SharedDayPage />} />
           
           {/* App routes with sidebar */}
           <Route path="/dashboard" element={<AppLayout />} />

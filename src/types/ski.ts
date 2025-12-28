@@ -5,6 +5,14 @@ export interface SkiDay {
   ski: string;
   activity: string;
   photoCount?: number; // Number of photos for this ski day
+  photos?: string[]; // Photo URLs
+  notes?: string;
+  shared_at?: Date | null; // Timestamp when sharing was enabled
+  user?: {
+    username: string;
+    avatar_url?: string | null;
+    display_name: string;
+  };
 }
 
 export interface SkiStats {
