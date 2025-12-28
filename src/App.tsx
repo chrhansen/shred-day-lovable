@@ -22,7 +22,7 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const AppLayout = () => (
+const AppLayout = ({ children }: { children: React.ReactNode }) => (
   <SidebarProvider>
     <div className="min-h-screen w-full relative">
       <AppSidebar />
@@ -31,16 +31,7 @@ const AppLayout = () => (
           <SidebarTrigger />
         </header>
         <div className="flex-1">
-          <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/log" element={<LogDay />} />
-            <Route path="/days" element={<DaysPage />} />
-            <Route path="/import" element={<PhotoImportPage />} />
-            <Route path="/import/text" element={<TextImportPage />} />
-            <Route path="/export" element={<ExportPage />} />
-            <Route path="/integrations" element={<IntegrationsPage />} />
-            <Route path="/account" element={<AccountPage />} />
-          </Routes>
+          {children}
         </div>
       </main>
     </div>
@@ -62,14 +53,14 @@ const App = () => (
           <Route path="/s/:dayId" element={<SharedDayPage />} />
           
           {/* App routes with sidebar */}
-          <Route path="/dashboard" element={<AppLayout />} />
-          <Route path="/log" element={<AppLayout />} />
-          <Route path="/days" element={<AppLayout />} />
-          <Route path="/import" element={<AppLayout />} />
-          <Route path="/import/text" element={<AppLayout />} />
-          <Route path="/export" element={<AppLayout />} />
-          <Route path="/integrations" element={<AppLayout />} />
-          <Route path="/account" element={<AppLayout />} />
+          <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
+          <Route path="/log" element={<AppLayout><LogDay /></AppLayout>} />
+          <Route path="/days" element={<AppLayout><DaysPage /></AppLayout>} />
+          <Route path="/import" element={<AppLayout><PhotoImportPage /></AppLayout>} />
+          <Route path="/import/text" element={<AppLayout><TextImportPage /></AppLayout>} />
+          <Route path="/export" element={<AppLayout><ExportPage /></AppLayout>} />
+          <Route path="/integrations" element={<AppLayout><IntegrationsPage /></AppLayout>} />
+          <Route path="/account" element={<AppLayout><AccountPage /></AppLayout>} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
