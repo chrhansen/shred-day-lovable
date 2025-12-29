@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { MapPin, Calendar, ChevronLeft, ChevronRight, Mountain } from "lucide-react";
+import { MapPin, Calendar, ChevronLeft, ChevronRight, Mountain, Snowflake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "@/components/Logo";
@@ -25,17 +25,21 @@ const mockSharedDay = {
   },
 };
 
+// Simulate a day not being found/shared - set to true to test the not found state
+const DAY_NOT_FOUND = false;
+
 export default function SharedDayPage() {
   const { dayId } = useParams();
   const navigate = useNavigate();
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   
   // In production, fetch the day data from your Rails API using dayId
-  const day = mockSharedDay;
-  const hasPhotos = day.photos && day.photos.length > 0;
+  // If the day doesn't exist or isn't shared, day will be null
+  const day = DAY_NOT_FOUND ? null : mockSharedDay;
+  const hasPhotos = day?.photos && day.photos.length > 0;
 
   const nextPhoto = () => {
-    if (hasPhotos) {
+    if (hasPhotos && day) {
       setCurrentPhotoIndex((prev) => 
         prev === day.photos.length - 1 ? 0 : prev + 1
       );
@@ -43,7 +47,7 @@ export default function SharedDayPage() {
   };
 
   const prevPhoto = () => {
-    if (hasPhotos) {
+    if (hasPhotos && day) {
       setCurrentPhotoIndex((prev) => 
         prev === 0 ? day.photos.length - 1 : prev - 1
       );
@@ -65,6 +69,51 @@ export default function SharedDayPage() {
     }
     setTouchStart(null);
   };
+
+  // Not found / not shared state
+  if (!day) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
+        <div className="text-center space-y-6 max-w-md mx-auto">
+          {/* Animated snowflakes decoration */}
+          <div className="relative h-32 w-32 mx-auto">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Mountain className="h-20 w-20 text-muted-foreground/20" />
+            </div>
+            <Snowflake className="absolute top-0 left-4 h-6 w-6 text-primary/40 animate-pulse" style={{ animationDelay: '0s' }} />
+            <Snowflake className="absolute top-8 right-2 h-4 w-4 text-primary/30 animate-pulse" style={{ animationDelay: '0.5s' }} />
+            <Snowflake className="absolute bottom-4 left-0 h-5 w-5 text-primary/35 animate-pulse" style={{ animationDelay: '1s' }} />
+            <Snowflake className="absolute bottom-0 right-6 h-3 w-3 text-primary/25 animate-pulse" style={{ animationDelay: '1.5s' }} />
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
+              This day has melted away
+            </h1>
+            <p className="text-muted-foreground">
+              The ski day you're looking for doesn't exist or is no longer shared.
+            </p>
+          </div>
+
+          <div className="pt-4 space-y-4">
+            <div className="flex justify-center">
+              <Logo />
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Track your own ski days and share your adventures
+            </p>
+            <Button 
+              onClick={() => navigate("/")}
+              variant="default"
+              className="w-full sm:w-auto"
+            >
+              Start Logging Your Days
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
