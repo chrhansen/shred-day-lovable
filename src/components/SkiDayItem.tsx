@@ -76,7 +76,7 @@ export function SkiDayItem({ day, isHighlighted = false, onToggleShare, onEdit, 
               <MoreVertical className="h-5 w-5" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
             <DropdownMenuItem onClick={() => setIsShareOpen(true)}>
               <Share2 className="h-4 w-4 mr-2" />
               Share
