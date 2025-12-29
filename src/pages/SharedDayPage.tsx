@@ -21,8 +21,7 @@ const mockSharedDay = {
   ],
   user: {
     username: "powder_hound",
-    avatar_url: null,
-    display_name: "Alex Thompson",
+    avatar_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
   },
 };
 
@@ -130,13 +129,10 @@ export default function SharedDayPage() {
           <Avatar className="h-10 w-10">
             <AvatarImage src={day.user.avatar_url || undefined} />
             <AvatarFallback className="bg-primary/10 text-primary">
-              {day.user.display_name.split(' ').map(n => n[0]).join('')}
+              {day.user.username.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <div>
-            <p className="font-medium text-foreground">{day.user.display_name}</p>
-            <p className="text-sm text-muted-foreground">@{day.user.username}</p>
-          </div>
+          <p className="font-medium text-foreground">@{day.user.username}</p>
         </div>
 
         {/* Day Details */}

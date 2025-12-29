@@ -1,14 +1,15 @@
-
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, addYears, subYears, subDays } from "date-fns";
-import { ChevronLeft, CalendarIcon, Save } from "lucide-react";
+import { ChevronLeft, CalendarIcon, Save, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,15 +20,37 @@ export default function AccountPage() {
   // Mock user data - in a real app, this would come from an auth service
   const [user, setUser] = useState({
     email: "user@example.com",
+    username: "powder_hound",
+    avatarUrl: null as string | null,
     signUpDate: new Date(2024, 2, 15), // March 15, 2024
     seasonStartDate: new Date(2024, 8, 1) // September 1, 2024
   });
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [isSaving, setIsSaving] = useState(false);
 
   const handleSeasonDateChange = (date: Date | undefined) => {
     if (date) {
       setUser(prev => ({ ...prev, seasonStartDate: date }));
+    }
+  };
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser(prev => ({ ...prev, username: e.target.value }));
+  };
+
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Create a preview URL for the selected file
+      const previewUrl = URL.createObjectURL(file);
+      setUser(prev => ({ ...prev, avatarUrl: previewUrl }));
+      // In production, you'd upload the file to your Rails backend here
     }
   };
 
@@ -111,16 +134,65 @@ export default function AccountPage() {
             <CardTitle>Account Information</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Profile Photo */}
+            <div className="space-y-2">
+              <Label>Profile Photo</Label>
+              <div className="flex items-center gap-4">
+                <div 
+                  className="relative cursor-pointer group"
+                  onClick={handleAvatarClick}
+                >
+                  <Avatar className="h-20 w-20">
+                    <AvatarImage src={user.avatarUrl || undefined} />
+                    <AvatarFallback className="bg-primary/10 text-primary text-xl">
+                      {user.username.slice(0, 2).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Camera className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+                <Button variant="outline" size="sm" onClick={handleAvatarClick}>
+                  Upload Photo
+                </Button>
+              </div>
+            </div>
+
+            {/* Username */}
+            <div className="space-y-2">
+              <Label htmlFor="username">Username</Label>
+              <div className="flex items-center">
+                <span className="text-muted-foreground mr-1">@</span>
+                <Input
+                  id="username"
+                  value={user.username}
+                  onChange={handleUsernameChange}
+                  placeholder="your_username"
+                  className="flex-1"
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                This will be shown when you share ski days.
+              </p>
+            </div>
+
             <div className="space-y-2">
               <Label>Email</Label>
-              <div className="p-2 bg-gray-50 rounded-md border">
+              <div className="p-2 bg-muted rounded-md border">
                 {user.email}
               </div>
             </div>
             
             <div className="space-y-2">
               <Label>Sign Up Date</Label>
-              <div className="p-2 bg-gray-50 rounded-md border">
+              <div className="p-2 bg-muted rounded-md border">
                 {format(user.signUpDate, "MMMM d, yyyy")}
               </div>
             </div>
