@@ -67,10 +67,10 @@ export default function SharedDayPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col items-center">
       {/* Photo Carousel */}
       <div 
-        className="relative w-full aspect-[4/5] sm:aspect-[16/10] bg-muted"
+        className="relative w-full max-w-2xl aspect-[4/5] sm:aspect-[16/10] bg-muted"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
