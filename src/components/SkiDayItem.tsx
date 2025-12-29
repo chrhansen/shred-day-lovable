@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { useState } from "react";
-import { MoreVertical, Share2, Pencil, Trash2 } from "lucide-react";
+import { MoreVertical, Share, Pencil, Trash2 } from "lucide-react";
 import { type SkiDay } from "@/types/ski";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { SkiDayDetail } from "@/components/SkiDayDetail";
@@ -78,7 +78,7 @@ export function SkiDayItem({ day, isHighlighted = false, onToggleShare, onEdit, 
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
             <DropdownMenuItem onClick={() => setIsShareOpen(true)}>
-              <Share2 className="h-4 w-4 mr-2" />
+              <Share className="h-4 w-4 mr-2" />
               Share
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => onEdit?.(day)}>
