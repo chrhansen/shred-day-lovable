@@ -1,25 +1,32 @@
 import { format } from "date-fns";
 import { useState } from "react";
-import { Share2 } from "lucide-react";
+import { MoreVertical, Share2, Pencil, Trash2 } from "lucide-react";
 import { type SkiDay } from "@/types/ski";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { SkiDayDetail } from "@/components/SkiDayDetail";
 import { ShareDayDialog } from "@/components/ShareDayDialog";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface SkiDayItemProps {
   day: SkiDay;
   isHighlighted?: boolean;
   onToggleShare?: (dayId: string, enabled: boolean) => void;
+  onEdit?: (day: SkiDay) => void;
+  onDelete?: (day: SkiDay) => void;
 }
 
-export function SkiDayItem({ day, isHighlighted = false, onToggleShare }: SkiDayItemProps) {
+export function SkiDayItem({ day, isHighlighted = false, onToggleShare, onEdit, onDelete }: SkiDayItemProps) {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
 
-  const handleShareClick = (e: React.MouseEvent) => {
+  const handleMenuClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsShareOpen(true);
   };
 
   const handleToggleShare = (enabled: boolean) => {
@@ -58,15 +65,35 @@ export function SkiDayItem({ day, isHighlighted = false, onToggleShare }: SkiDay
           </div>
         </div>
 
-        {/* Share Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleShareClick}
-          className="shrink-0 text-muted-foreground hover:text-foreground"
-        >
-          <Share2 className="h-4 w-4" />
-        </Button>
+        {/* Dropdown Menu */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild onClick={handleMenuClick}>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="shrink-0 text-muted-foreground hover:text-foreground"
+            >
+              <MoreVertical className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => setIsShareOpen(true)}>
+              <Share2 className="h-4 w-4 mr-2" />
+              Share
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onEdit?.(day)}>
+              <Pencil className="h-4 w-4 mr-2" />
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={() => onDelete?.(day)}
+              className="text-destructive focus:text-destructive"
+            >
+              <Trash2 className="h-4 w-4 mr-2" />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <SkiDayDetail 
