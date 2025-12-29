@@ -50,7 +50,7 @@ const App = () => (
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
-          <Route path="/s/:dayId" element={<SharedDayPage />} />
+          <Route path="/d/:dayId" element={<SharedDayPage />} />
           
           {/* App routes with sidebar */}
           <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />

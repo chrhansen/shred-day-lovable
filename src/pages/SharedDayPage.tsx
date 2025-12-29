@@ -12,12 +12,12 @@ const mockSharedDay = {
   date: new Date("2024-02-15"),
   resort: "Jackson Hole",
   ski: "Nordica Enforcer 100",
-  activity: "Powder Day",
+  activities: ["Powder", "Training", "With Friends"],
   notes: "Epic powder day! Fresh 18 inches overnight. Hit the backcountry gates early.",
   photos: [
-    "/placeholder-1.jpg",
-    "/placeholder-2.jpg",
-    "/placeholder-3.jpg",
+    "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=800&q=80",
+    "https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=800&q=80",
+    "https://images.unsplash.com/photo-1565992441121-4367c2967103?w=800&q=80",
   ],
   user: {
     username: "powder_hound",
@@ -145,15 +145,21 @@ export default function SharedDayPage() {
             {day.resort}
           </h1>
           
-          <div className="flex flex-wrap gap-4 text-muted-foreground">
-            <div className="flex items-center gap-1.5">
-              <Calendar className="h-4 w-4" />
-              <span className="text-sm">{format(day.date, 'MMMM d, yyyy')}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <MapPin className="h-4 w-4" />
-              <span className="text-sm">{day.activity}</span>
-            </div>
+          <div className="flex items-center gap-1.5 text-muted-foreground">
+            <Calendar className="h-4 w-4" />
+            <span className="text-sm">{format(day.date, 'MMMM d, yyyy')}</span>
+          </div>
+
+          {/* Activities */}
+          <div className="flex flex-wrap gap-2">
+            {day.activities.map((activity, index) => (
+              <span 
+                key={index}
+                className="inline-flex items-center px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
+              >
+                {activity}
+              </span>
+            ))}
           </div>
 
           {/* Ski Info */}
