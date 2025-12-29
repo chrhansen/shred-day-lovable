@@ -79,7 +79,7 @@ export default function SharedDayPage() {
             <img
               src={day.photos[currentPhotoIndex]}
               alt={`${day.resort} - Photo ${currentPhotoIndex + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
             
             {/* Photo Navigation */}
