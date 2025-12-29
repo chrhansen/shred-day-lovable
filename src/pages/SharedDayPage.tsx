@@ -26,7 +26,7 @@ const mockSharedDay = {
 };
 
 // Simulate a day not being found/shared - set to true to test the not found state
-const DAY_NOT_FOUND = true;
+const DAY_NOT_FOUND = false;
 
 export default function SharedDayPage() {
   const { dayId } = useParams();
