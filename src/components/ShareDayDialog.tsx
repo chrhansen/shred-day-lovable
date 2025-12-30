@@ -96,23 +96,9 @@ export function ShareDayDialog({ day, isOpen, onClose, onToggleShare }: ShareDay
           {/* Share Link Section */}
           {isShared && (
             <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="flex-1 flex items-center gap-2 px-3 py-2 bg-muted rounded-lg border">
-                  <Link className="h-4 w-4 text-muted-foreground shrink-0" />
-                  <span className="text-sm truncate font-mono">{shareUrl}</span>
-                </div>
-                <Button
-                  size="icon"
-                  variant="outline"
-                  onClick={handleCopy}
-                  className="shrink-0"
-                >
-                  {copied ? (
-                    <Check className="h-4 w-4 text-green-600" />
-                  ) : (
-                    <Copy className="h-4 w-4" />
-                  )}
-                </Button>
+              <div className="flex items-center gap-2 px-3 py-2 bg-muted rounded-lg border">
+                <Link className="h-4 w-4 text-muted-foreground shrink-0" />
+                <span className="text-sm truncate font-mono">{shareUrl}</span>
               </div>
               
               <Button 
