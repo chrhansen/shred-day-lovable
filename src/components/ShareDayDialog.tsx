@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, Link, Link2Off } from "lucide-react";
+import { format } from "date-fns";
 import {
   Dialog,
   DialogContent,
@@ -65,8 +66,10 @@ export function ShareDayDialog({ day, isOpen, onClose, onToggleShare }: ShareDay
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Link className="h-5 w-5" />
-            Share Day
+            <Link className="h-5 w-5 shrink-0" />
+            <span className="truncate">
+              Share {day.resort}, {format(new Date(day.date), "MMM d, yyyy")}
+            </span>
           </DialogTitle>
         </DialogHeader>
         
