@@ -71,57 +71,6 @@ const LinkPreviewMockup = () => {
           </div>
         </div>
       </div>
-      
-      {/* Alternative simpler design */}
-      <div className="max-w-sm w-full">
-        <p className="text-xs text-white/50 mb-2 text-center">Simpler Alternative</p>
-        
-        <div className="bg-white rounded-2xl overflow-hidden shadow-2xl">
-          {/* Photo-focused preview */}
-          <div className="relative h-48">
-            <img 
-              src="/placeholder-1.jpg" 
-              alt="Ski day"
-              className="w-full h-full object-cover"
-            />
-            {/* Gradient overlay for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            
-            {/* Content on image */}
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <div className="flex items-center gap-1.5 text-white/80 text-xs mb-1">
-                <Snowflake className="h-3 w-3" />
-                <span>December 28, 2024</span>
-              </div>
-              <h3 className="text-white font-bold text-lg">
-                Vail Mountain
-              </h3>
-            </div>
-          </div>
-          
-          {/* Bottom bar */}
-          <div className="px-3 py-2 bg-gray-50 flex items-center gap-2">
-            <div className="h-5 w-5 rounded bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
-              <Mountain className="h-3 w-3 text-white" />
-            </div>
-            <span className="text-xs text-gray-600 font-medium">
-              shred.day
-            </span>
-          </div>
-        </div>
-      </div>
-      
-      {/* Notes */}
-      <div className="max-w-md text-center space-y-2">
-        <p className="text-white/60 text-sm">
-          Open Graph tags needed: <code className="bg-white/10 px-1.5 py-0.5 rounded text-xs">og:image</code>, 
-          <code className="bg-white/10 px-1.5 py-0.5 rounded text-xs ml-1">og:title</code>, 
-          <code className="bg-white/10 px-1.5 py-0.5 rounded text-xs ml-1">og:description</code>
-        </p>
-        <p className="text-white/40 text-xs">
-          Recommended image size: 1200×630px for best display
-        </p>
-      </div>
     </div>
   );
 };
