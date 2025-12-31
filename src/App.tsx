@@ -18,6 +18,7 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import GoogleCallbackPage from "./pages/GoogleCallbackPage";
 import SharedDayPage from "./pages/SharedDayPage";
+import LinkPreviewMockup from "./components/LinkPreviewMockup";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +52,7 @@ const App = () => (
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
           <Route path="/d/:dayId" element={<SharedDayPage />} />
+          <Route path="/link-preview" element={<LinkPreviewMockup />} />
           
           {/* App routes with sidebar */}
           <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
