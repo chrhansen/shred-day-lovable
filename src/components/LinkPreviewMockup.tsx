@@ -1,4 +1,4 @@
-import { Mountain, Snowflake } from "lucide-react";
+import { Mountain } from "lucide-react";
 
 const LinkPreviewMockup = () => {
   return (
@@ -11,30 +11,34 @@ const LinkPreviewMockup = () => {
         
         {/* The actual link preview card */}
         <div className="bg-white rounded-2xl overflow-hidden shadow-2xl">
-          {/* Preview Image - Hero section */}
-          <div className="relative h-44 bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600">
-            {/* Decorative mountains */}
-            <div className="absolute inset-0 overflow-hidden">
-              <svg 
-                viewBox="0 0 400 180" 
-                className="absolute bottom-0 w-full"
-                preserveAspectRatio="xMidYMax slice"
-              >
-                <path 
-                  d="M0 180 L80 80 L120 120 L180 40 L240 100 L300 60 L360 90 L400 50 L400 180 Z" 
-                  fill="rgba(255,255,255,0.15)"
-                />
-                <path 
-                  d="M0 180 L60 120 L100 140 L160 80 L220 130 L280 90 L340 110 L400 70 L400 180 Z" 
-                  fill="rgba(255,255,255,0.1)"
-                />
-              </svg>
-              
-              {/* Snowflakes */}
-              <Snowflake className="absolute top-4 right-6 h-5 w-5 text-white/30" />
-              <Snowflake className="absolute top-8 left-8 h-3 w-3 text-white/20" />
-              <Snowflake className="absolute top-16 right-16 h-4 w-4 text-white/25" />
+          {/* Preview Image - Photo collage */}
+          <div className="relative h-44">
+            {/* 2x2 photo grid */}
+            <div className="grid grid-cols-2 grid-rows-2 h-full gap-0.5 bg-black/20">
+              <img 
+                src="/placeholder-1.jpg" 
+                alt="Ski day photo 1"
+                className="w-full h-full object-cover"
+              />
+              <img 
+                src="/placeholder-2.jpg" 
+                alt="Ski day photo 2"
+                className="w-full h-full object-cover"
+              />
+              <img 
+                src="/placeholder-3.jpg" 
+                alt="Ski day photo 3"
+                className="w-full h-full object-cover"
+              />
+              <img 
+                src="/placeholder-4.jpg" 
+                alt="Ski day photo 4"
+                className="w-full h-full object-cover"
+              />
             </div>
+            
+            {/* Gradient overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
             
             {/* Main content overlay */}
             <div className="absolute inset-0 flex flex-col justify-end p-4">
