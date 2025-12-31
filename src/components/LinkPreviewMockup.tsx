@@ -63,7 +63,7 @@ const LinkPreviewMockup = () => {
           {/* Text content below image */}
           <div className="p-3 bg-gray-50">
             <p className="text-xs text-gray-500 uppercase tracking-wide mb-0.5">
-              skilog.app
+              shred.day
             </p>
             <p className="text-sm text-gray-700 line-clamp-2">
               Powder day at Vail! 8 runs, blue skies, and perfect conditions.
@@ -105,7 +105,7 @@ const LinkPreviewMockup = () => {
               <Mountain className="h-3 w-3 text-white" />
             </div>
             <span className="text-xs text-gray-600 font-medium">
-              skilog.app
+              shred.day
             </span>
           </div>
         </div>
