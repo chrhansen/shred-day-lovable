@@ -67,7 +67,6 @@ const LinkPreviewMockup = () => {
           <div className="p-3 bg-gray-50">
             <p className="text-xs text-gray-500 tracking-wide mb-0.5">
               shred.day
-              shred.day
             </p>
             <p className="text-sm text-gray-700 line-clamp-2">
               Powder day at Vail! 8 runs, blue skies, and perfect conditions.
