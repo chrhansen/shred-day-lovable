@@ -49,10 +49,13 @@ const LinkPreviewMockup = () => {
               </p>
             </div>
             
-            {/* Stats badge */}
-            <div className="absolute top-3 left-3 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
-              <span className="text-white text-xs font-semibold">
-                12,500 ft vert
+            {/* Activity tags */}
+            <div className="absolute top-3 left-3 flex gap-1.5">
+              <span className="bg-black/30 backdrop-blur-sm rounded-full px-2.5 py-1 text-white text-xs font-medium">
+                Powder
+              </span>
+              <span className="bg-black/30 backdrop-blur-sm rounded-full px-2.5 py-1 text-white text-xs font-medium">
+                Groomers
               </span>
             </div>
           </div>
