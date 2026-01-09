@@ -117,6 +117,13 @@ export default function SharedDayPage() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center">
+      {/* Header */}
+      <header className="w-full max-w-2xl px-4 py-4 flex items-center justify-center">
+        <button onClick={() => navigate("/")} className="hover:opacity-80 transition-opacity">
+          <Logo />
+        </button>
+      </header>
+
       {/* Photo Carousel */}
       <div
         className="relative w-full max-w-2xl aspect-[4/5] sm:aspect-[16/10] bg-muted"
