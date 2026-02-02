@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, X, Loader2 } from "lucide-react";
+import { Plus, X, Loader2, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Resort {
@@ -46,6 +46,11 @@ export function ResortSearch({ onSelect }: ResortSearchProps) {
   const [results, setResults] = useState<Resort[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  
+  // Add resort form state
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newResortName, setNewResortName] = useState("");
+  const [newResortCountry, setNewResortCountry] = useState("");
 
   useEffect(() => {
     if (query.length < 2) {
@@ -72,6 +77,7 @@ export function ResortSearch({ onSelect }: ResortSearchProps) {
     setOpen(false);
     setQuery("");
     setResults([]);
+    setShowAddForm(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -94,8 +100,43 @@ export function ResortSearch({ onSelect }: ResortSearchProps) {
     setResults([]);
   };
 
+  const handleStartAddResort = () => {
+    setNewResortName(query); // Pre-fill with search query
+    setNewResortCountry("");
+    setShowAddForm(true);
+  };
+
+  const handleBackToSearch = () => {
+    setShowAddForm(false);
+  };
+
+  const handleAddNewResort = () => {
+    if (!newResortName.trim() || !newResortCountry.trim()) {
+      return;
+    }
+    
+    // In production, this would call your backend API to create the resort
+    // For now, we just select it and let the backend verify
+    onSelect(newResortName.trim());
+    setOpen(false);
+    setQuery("");
+    setResults([]);
+    setShowAddForm(false);
+    setNewResortName("");
+    setNewResortCountry("");
+  };
+
+  const showNoResults = !isLoading && query.length >= 2 && results.length === 0;
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={(isOpen) => {
+      setOpen(isOpen);
+      if (!isOpen) {
+        setShowAddForm(false);
+        setQuery("");
+        setResults([]);
+      }
+    }}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -106,65 +147,119 @@ export function ResortSearch({ onSelect }: ResortSearchProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 p-0 bg-background border shadow-lg" align="start">
-        <div className="flex items-center border-b px-3">
-          <Input
-            placeholder="Search resorts..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 px-0"
-            autoFocus
-          />
-          {query && (
-            <button
-              onClick={clearSearch}
-              className="p-1 hover:bg-muted rounded"
-            >
-              <X className="h-4 w-4 text-muted-foreground" />
-            </button>
-          )}
-        </div>
-        
-        <div className="max-h-64 overflow-y-auto">
-          {isLoading && (
-            <div className="flex items-center justify-center py-4">
-              <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-            </div>
-          )}
-          
-          {!isLoading && query.length >= 2 && results.length === 0 && (
-            <div className="py-4 text-center text-sm text-muted-foreground">
-              No resorts found
-            </div>
-          )}
-          
-          {!isLoading && query.length > 0 && query.length < 2 && (
-            <div className="py-4 text-center text-sm text-muted-foreground">
-              Type at least 2 characters
-            </div>
-          )}
-          
-          {!isLoading && results.length > 0 && (
-            <ul className="py-1">
-              {results.map((resort, index) => (
-                <li
-                  key={`${resort.name}-${resort.location}`}
-                  className={cn(
-                    "px-3 py-2 cursor-pointer hover:bg-accent",
-                    selectedIndex === index && "bg-accent"
-                  )}
-                  onClick={() => handleSelect(resort)}
-                  onMouseEnter={() => setSelectedIndex(index)}
+        {!showAddForm ? (
+          <>
+            <div className="flex items-center border-b px-3">
+              <Input
+                placeholder="Search resorts..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 px-0"
+                autoFocus
+              />
+              {query && (
+                <button
+                  onClick={clearSearch}
+                  className="p-1 hover:bg-muted rounded"
                 >
-                  <span className="font-medium text-foreground">{resort.name}</span>
-                  <span className="ml-2 text-sm text-muted-foreground">
-                    ({resort.location})
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+                  <X className="h-4 w-4 text-muted-foreground" />
+                </button>
+              )}
+            </div>
+            
+            <div className="max-h-64 overflow-y-auto">
+              {isLoading && (
+                <div className="flex items-center justify-center py-4">
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                </div>
+              )}
+              
+              {showNoResults && (
+                <div className="py-3 px-3">
+                  <p className="text-sm text-muted-foreground text-center mb-3">
+                    No resorts found
+                  </p>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={handleStartAddResort}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add "{query}" as new resort
+                  </Button>
+                </div>
+              )}
+              
+              {!isLoading && query.length > 0 && query.length < 2 && (
+                <div className="py-4 text-center text-sm text-muted-foreground">
+                  Type at least 2 characters
+                </div>
+              )}
+              
+              {!isLoading && results.length > 0 && (
+                <ul className="py-1">
+                  {results.map((resort, index) => (
+                    <li
+                      key={`${resort.name}-${resort.location}`}
+                      className={cn(
+                        "px-3 py-2 cursor-pointer hover:bg-accent",
+                        selectedIndex === index && "bg-accent"
+                      )}
+                      onClick={() => handleSelect(resort)}
+                      onMouseEnter={() => setSelectedIndex(index)}
+                    >
+                      <span className="font-medium text-foreground">{resort.name}</span>
+                      <span className="ml-2 text-sm text-muted-foreground">
+                        ({resort.location})
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="p-3 space-y-3">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleBackToSearch}
+                className="p-1 hover:bg-muted rounded"
+              >
+                <ChevronLeft className="h-4 w-4 text-muted-foreground" />
+              </button>
+              <span className="font-medium text-sm">Add new resort</span>
+            </div>
+            
+            <div className="space-y-2">
+              <Input
+                placeholder="Resort name"
+                value={newResortName}
+                onChange={(e) => setNewResortName(e.target.value)}
+                autoFocus
+              />
+              <Input
+                placeholder="Country"
+                value={newResortCountry}
+                onChange={(e) => setNewResortCountry(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleAddNewResort();
+                  }
+                }}
+              />
+            </div>
+            
+            <Button
+              onClick={handleAddNewResort}
+              disabled={!newResortName.trim() || !newResortCountry.trim()}
+              className="w-full"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add resort
+            </Button>
+          </div>
+        )}
       </PopoverContent>
     </Popover>
   );
