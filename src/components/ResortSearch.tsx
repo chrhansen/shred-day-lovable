@@ -2,8 +2,32 @@ import { useState, useEffect } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, X, Loader2, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const COUNTRIES = [
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+  "Belarus", "Belgium", "Bolivia", "Bosnia and Herzegovina", "Brazil", "Bulgaria",
+  "Canada", "Chile", "China", "Colombia", "Croatia", "Czech Republic",
+  "Denmark",
+  "Ecuador", "Estonia",
+  "Finland", "France",
+  "Georgia", "Germany", "Greece", "Greenland",
+  "Hungary",
+  "Iceland", "India", "Iran", "Iraq", "Ireland", "Israel", "Italy",
+  "Japan",
+  "Kazakhstan", "Kosovo", "Kyrgyzstan",
+  "Latvia", "Lebanon", "Liechtenstein", "Lithuania", "Luxembourg",
+  "Mexico", "Moldova", "Mongolia", "Montenegro", "Morocco",
+  "Nepal", "Netherlands", "New Zealand", "North Macedonia", "Norway",
+  "Pakistan", "Peru", "Poland", "Portugal",
+  "Romania", "Russia",
+  "Serbia", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sweden", "Switzerland",
+  "Tajikistan", "Turkey", "Turkmenistan",
+  "Ukraine", "United Kingdom", "United States", "Uzbekistan",
+  "Venezuela"
+];
 
 interface Resort {
   name: string;
@@ -238,16 +262,18 @@ export function ResortSearch({ onSelect }: ResortSearchProps) {
                 onChange={(e) => setNewResortName(e.target.value)}
                 autoFocus
               />
-              <Input
-                placeholder="Country"
-                value={newResortCountry}
-                onChange={(e) => setNewResortCountry(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleAddNewResort();
-                  }
-                }}
-              />
+              <Select value={newResortCountry} onValueChange={setNewResortCountry}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select country" />
+                </SelectTrigger>
+                <SelectContent className="max-h-48">
+                  {COUNTRIES.map((country) => (
+                    <SelectItem key={country} value={country}>
+                      {country}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             
             <Button
