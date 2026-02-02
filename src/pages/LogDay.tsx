@@ -1,8 +1,8 @@
-
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { SelectionPill } from "@/components/SelectionPill";
+import { ResortSearch } from "@/components/ResortSearch";
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ import { skiService } from "@/services/skiService";
 import { toast } from "sonner";
 import { isSameDay } from "date-fns";
 
-const RESORTS = ["Stubai", "Kühtai", "Axamer Lizum"];
+const DEFAULT_RESORTS = ["Stubai", "Kühtai", "Axamer Lizum"];
 const SKIS = ["Fischer RC4 GS", "Atomic G9", "Kästle Twin tip"];
 const ACTIVITIES = ["Friends", "Training"];
 
@@ -32,6 +32,14 @@ export default function LogDay() {
   const [selectedResort, setSelectedResort] = useState<string>("");
   const [selectedSki, setSelectedSki] = useState<string>("");
   const [selectedActivity, setSelectedActivity] = useState<string>("");
+  const [resorts, setResorts] = useState<string[]>(DEFAULT_RESORTS);
+
+  const handleAddResort = (resortName: string) => {
+    if (!resorts.includes(resortName)) {
+      setResorts(prev => [...prev, resortName]);
+    }
+    setSelectedResort(resortName);
+  };
 
   // In a real app, this would fetch from the service
   const existingDays = sampleExistingDays;
@@ -108,7 +116,7 @@ export default function LogDay() {
           <div>
             <h2 className="text-lg font-medium text-slate-800 mb-4">Ski Resort</h2>
             <div className="flex flex-wrap gap-2">
-              {RESORTS.map((resort) => (
+              {resorts.map((resort) => (
                 <SelectionPill
                   key={resort}
                   label={resort}
@@ -116,6 +124,7 @@ export default function LogDay() {
                   onClick={() => setSelectedResort(resort)}
                 />
               ))}
+              <ResortSearch onSelect={handleAddResort} />
             </div>
           </div>
 
