@@ -12,6 +12,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+function truncateText(text: string, maxLength: number = 40): { truncated: string; isTruncated: boolean } {
+  if (text.length <= maxLength) {
+    return { truncated: text, isTruncated: false };
+  }
+  return { truncated: text.slice(0, maxLength).trim() + "…", isTruncated: true };
+}
 
 interface SkiDayItemProps {
   day: SkiDay;
@@ -63,6 +76,22 @@ export function SkiDayItem({ day, isHighlighted = false, onToggleShare, onEdit, 
             <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
             <span>{day.activity}</span>
           </div>
+          {day.notes && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="text-sm text-muted-foreground/80 italic mt-1 cursor-default">
+                    {truncateText(day.notes).truncated}
+                  </div>
+                </TooltipTrigger>
+                {truncateText(day.notes).isTruncated && (
+                  <TooltipContent side="bottom" className="max-w-xs">
+                    <p className="text-sm">{day.notes}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
+          )}
         </div>
 
         {/* Dropdown Menu */}
