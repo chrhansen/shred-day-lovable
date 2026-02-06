@@ -17,6 +17,7 @@ const sampleDays = [
     photoCount: 8,
     photos: ["/placeholder-1.jpg", "/placeholder-2.jpg"],
     shared_at: null,
+    notes: "Perfect powder day! Fresh 30cm overnight made for incredible skiing in the alpine.",
   },
   {
     id: "2",
@@ -27,6 +28,7 @@ const sampleDays = [
     photoCount: 15,
     photos: ["/placeholder-3.jpg", "/placeholder-4.jpg", "/placeholder-5.jpg"],
     shared_at: new Date("2025-12-24T10:00:00Z"),
+    notes: "Epic backcountry tour with the crew. Found some untouched lines in the Herman Saddle area.",
   },
   {
     id: "3",
@@ -47,6 +49,7 @@ const sampleDays = [
     photoCount: 10,
     photos: ["/placeholder-2.jpg", "/placeholder-3.jpg"],
     shared_at: null,
+    notes: "Icy morning but softened up by noon.",
   },
   {
     id: "5",
@@ -57,6 +60,7 @@ const sampleDays = [
     photoCount: 12,
     photos: ["/placeholder-4.jpg", "/placeholder-5.jpg"],
     shared_at: new Date("2025-11-28T14:30:00Z"),
+    notes: "First big trip of the season. Conditions were variable but we found some great snow in the trees. Can't wait to come back!",
   },
 ];
 

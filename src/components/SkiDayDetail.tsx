@@ -77,13 +77,12 @@ export function SkiDayDetail({ day, isOpen, onClose }: SkiDayDetailProps) {
             </div>
           </div>
 
-          <div>
-            <h3 className="text-sm font-medium text-slate-500 mb-1">Notes</h3>
-            <p className="text-slate-800">
-              {/* Placeholder for notes - in a real app, this would come from the day data */}
-              Perfect snow conditions today! Had a great time exploring the back bowls.
-            </p>
-          </div>
+          {day.notes && (
+            <div>
+              <h3 className="text-sm font-medium text-slate-500 mb-1">Notes</h3>
+              <p className="text-slate-800 whitespace-pre-wrap">{day.notes}</p>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
