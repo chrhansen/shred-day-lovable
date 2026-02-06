@@ -69,8 +69,11 @@ export function SkiDayItem({ day, isHighlighted = false, onToggleShare, onEdit, 
         </div>
         
         <div className="flex-1 min-w-0">
-          <div className="font-medium text-foreground">{day.resort}</div>
-          <div className="text-sm text-muted-foreground">{format(day.date, 'MMM d, yyyy')}</div>
+          <div className="flex items-baseline gap-2">
+            <span className="font-medium text-foreground">{day.resort}</span>
+            <span className="text-sm text-muted-foreground">·</span>
+            <span className="text-sm text-muted-foreground">{format(day.date, 'MMM d')}</span>
+          </div>
           <div className="text-sm text-muted-foreground flex items-center gap-2">
             <span>{day.ski}</span>
             <span className="w-1 h-1 bg-muted-foreground/30 rounded-full" />
