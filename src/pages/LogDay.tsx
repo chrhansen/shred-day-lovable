@@ -33,7 +33,8 @@ export default function LogDay() {
   const [selectedResort, setSelectedResort] = useState<string>("");
   const [selectedSki, setSelectedSki] = useState<string>("");
   const [selectedActivity, setSelectedActivity] = useState<string>("");
-  const [comment, setComment] = useState<string>("");
+  const [notes, setNotes] = useState<string>("");
+  const NOTES_MAX_LENGTH = 500;
   const [resorts, setResorts] = useState<string[]>(DEFAULT_RESORTS);
 
   const handleAddResort = (resortName: string) => {
@@ -71,7 +72,7 @@ export default function LogDay() {
       resort: selectedResort,
       ski: selectedSki,
       activity: selectedActivity,
-      notes: comment || undefined,
+      notes: notes || undefined,
     });
   };
 
@@ -160,11 +161,17 @@ export default function LogDay() {
           </div>
 
           <div>
-            <h2 className="text-lg font-medium text-slate-800 mb-4">Comment <span className="text-sm font-normal text-slate-400">(optional)</span></h2>
+            <div className="flex items-baseline justify-between mb-4">
+              <h2 className="text-lg font-medium text-slate-800">Notes <span className="text-sm font-normal text-slate-400">(optional)</span></h2>
+              <span className={`text-sm ${notes.length > NOTES_MAX_LENGTH ? 'text-red-500' : 'text-slate-400'}`}>
+                {notes.length}/{NOTES_MAX_LENGTH}
+              </span>
+            </div>
             <Textarea
-              placeholder="Add a note about this ski day..."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
+              placeholder="Add notes about this ski day..."
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              maxLength={NOTES_MAX_LENGTH}
               className="min-h-[100px] resize-none"
             />
           </div>
