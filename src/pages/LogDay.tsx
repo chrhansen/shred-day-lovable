@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { SelectionPill } from "@/components/SelectionPill";
 import { ResortSearch } from "@/components/ResortSearch";
 import { ChevronLeft } from "lucide-react";
@@ -32,6 +33,7 @@ export default function LogDay() {
   const [selectedResort, setSelectedResort] = useState<string>("");
   const [selectedSki, setSelectedSki] = useState<string>("");
   const [selectedActivity, setSelectedActivity] = useState<string>("");
+  const [comment, setComment] = useState<string>("");
   const [resorts, setResorts] = useState<string[]>(DEFAULT_RESORTS);
 
   const handleAddResort = (resortName: string) => {
@@ -69,6 +71,7 @@ export default function LogDay() {
       resort: selectedResort,
       ski: selectedSki,
       activity: selectedActivity,
+      notes: comment || undefined,
     });
   };
 
@@ -154,6 +157,16 @@ export default function LogDay() {
                 />
               ))}
             </div>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-medium text-slate-800 mb-4">Comment <span className="text-sm font-normal text-slate-400">(optional)</span></h2>
+            <Textarea
+              placeholder="Add a note about this ski day..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="min-h-[100px] resize-none"
+            />
           </div>
         </div>
 
