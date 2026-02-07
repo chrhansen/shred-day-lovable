@@ -53,8 +53,6 @@ const mockSkis = [
 
 export default function Dashboard() {
   const [selectedSeason, setSelectedSeason] = useState('2025-26');
-  
-  const currentSeasonLabel = mockSeasons.find(s => s.id === selectedSeason)?.label || 'This Season';
 
   return (
     <div className="min-h-screen bg-slate-50 pb-8">
@@ -74,9 +72,6 @@ export default function Dashboard() {
           totalDays={44} 
           uniqueResorts={5} 
           currentStreak={3}
-          seasonGoal={50}
-          seasonLabel={currentSeasonLabel}
-          onSeasonGoalChange={(goal) => console.log('New goal:', goal)}
         />
 
         {/* Days Per Month Chart */}
