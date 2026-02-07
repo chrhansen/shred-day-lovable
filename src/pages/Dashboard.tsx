@@ -73,6 +73,7 @@ export default function Dashboard() {
           uniqueResorts={5} 
           currentStreak={3}
           seasonGoal={50}
+          onSeasonGoalChange={(goal) => console.log('New goal:', goal)}
         />
 
         {/* Days Per Month Chart */}
