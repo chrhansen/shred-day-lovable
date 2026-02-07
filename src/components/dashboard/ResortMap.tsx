@@ -22,11 +22,19 @@ export function ResortMap({ resorts }: ResortMapProps) {
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
-    // Initialize map
+    // Calculate initial center from resorts, or fallback to Europe
+    const initialCenter: L.LatLngExpression = resorts.length > 0
+      ? [
+          resorts.reduce((sum, r) => sum + r.latitude, 0) / resorts.length,
+          resorts.reduce((sum, r) => sum + r.longitude, 0) / resorts.length,
+        ]
+      : [46.8, 8.2];
+
+    // Initialize map centered on resorts
     const map = L.map(mapRef.current, {
       zoomControl: false,
       attributionControl: false,
-    }).setView([46.8, 8.2], 5);
+    }).setView(initialCenter, 5);
 
     // Add tile layer (using a clean, minimal style)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
