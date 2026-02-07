@@ -17,6 +17,7 @@ interface SeasonStatsProps {
   uniqueResorts: number;
   currentStreak: number;
   seasonGoal?: number;
+  seasonLabel?: string;
   onSeasonGoalChange?: (newGoal: number) => void;
 }
 
@@ -25,6 +26,7 @@ export function SeasonStatsCard({
   uniqueResorts, 
   currentStreak, 
   seasonGoal = 50,
+  seasonLabel = 'This Season',
   onSeasonGoalChange 
 }: SeasonStatsProps) {
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -34,7 +36,7 @@ export function SeasonStatsCard({
 
   const handleSave = () => {
     const newGoal = parseInt(goalInput, 10);
-    if (!isNaN(newGoal) && newGoal > 0) {
+    if (!isNaN(newGoal) && newGoal > 0 && newGoal <= 365) {
       onSeasonGoalChange?.(newGoal);
       setIsEditOpen(false);
     }
@@ -94,14 +96,15 @@ export function SeasonStatsCard({
       <Dialog open={isEditOpen} onOpenChange={handleOpenChange}>
         <DialogContent className="max-w-xs">
           <DialogHeader>
-            <DialogTitle>Set Season Goal</DialogTitle>
+            <DialogTitle>Set Season Goal for {seasonLabel}</DialogTitle>
           </DialogHeader>
           <div className="space-y-2 py-2">
-            <Label htmlFor="season-goal">Number of days</Label>
+            <Label htmlFor="season-goal">Number of days (max 365)</Label>
             <Input
               id="season-goal"
               type="number"
               min="1"
+              max="365"
               value={goalInput}
               onChange={(e) => setGoalInput(e.target.value)}
               placeholder="50"
