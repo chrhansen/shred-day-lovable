@@ -1,6 +1,4 @@
-import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { Logo } from "@/components/Logo";
 import { SeasonStatsCard } from "@/components/dashboard/SeasonStatsCard";
 import { DaysPerMonthChart } from "@/components/dashboard/DaysPerMonthChart";
@@ -8,18 +6,24 @@ import { ResortMap } from "@/components/dashboard/ResortMap";
 import { TopResortsCard } from "@/components/dashboard/TopResortsCard";
 import { TagsBreakdownChart } from "@/components/dashboard/TagsBreakdownChart";
 import { SkisUsageCard } from "@/components/dashboard/SkisUsageCard";
-import { RecentActivityCard } from "@/components/dashboard/RecentActivityCard";
+import { SeasonSelector } from "@/components/dashboard/SeasonSelector";
 
 // Mock data - will be replaced with real data from API
+const mockSeasons = [
+  { id: '2025-26', label: '2025/26 Season' },
+  { id: '2024-25', label: '2024/25 Season' },
+  { id: '2023-24', label: '2023/24 Season' },
+];
+
 const mockMonthlyData = [
-  { month: 'Sep', days: 0 },
-  { month: 'Oct', days: 2 },
-  { month: 'Nov', days: 4 },
-  { month: 'Dec', days: 8 },
-  { month: 'Jan', days: 12 },
-  { month: 'Feb', days: 9 },
-  { month: 'Mar', days: 6 },
-  { month: 'Apr', days: 3 },
+  { month: 'Sep', fullMonth: 'September', days: 0 },
+  { month: 'Oct', fullMonth: 'October', days: 2 },
+  { month: 'Nov', fullMonth: 'November', days: 4 },
+  { month: 'Dec', fullMonth: 'December', days: 8 },
+  { month: 'Jan', fullMonth: 'January', days: 12 },
+  { month: 'Feb', fullMonth: 'February', days: 9 },
+  { month: 'Mar', fullMonth: 'March', days: 6 },
+  { month: 'Apr', fullMonth: 'April', days: 3 },
 ];
 
 const mockResorts = [
@@ -36,33 +40,31 @@ const mockTags = [
   { name: 'Training', count: 8 },
   { name: 'Family', count: 5 },
   { name: 'Touring', count: 4 },
+  { name: 'Bad Visibility', count: 3 },
+  { name: 'Racing', count: 2 },
 ];
 
 const mockSkis = [
-  { name: 'All-Mountain', days: 18 },
-  { name: 'Powder', days: 12 },
-  { name: 'Race', days: 8 },
-  { name: 'Touring', days: 6 },
-];
-
-const mockRecentDays = [
-  { date: new Date(2026, 1, 5), resort: 'Zermatt', dayNumber: 44 },
-  { date: new Date(2026, 1, 3), resort: 'Zermatt', dayNumber: 43 },
-  { date: new Date(2026, 0, 28), resort: 'Chamonix', dayNumber: 42 },
-  { date: new Date(2026, 0, 25), resort: 'Chamonix', dayNumber: 41 },
-  { date: new Date(2026, 0, 20), resort: 'St. Anton', dayNumber: 40 },
+  { name: 'Atomic Redster G9, 181', days: 18 },
+  { name: 'Fischer Ranger 102', days: 12 },
+  { name: 'Völkl Mantra M6', days: 8 },
+  { name: 'Salomon QST 106', days: 6 },
 ];
 
 export default function Dashboard() {
-  const navigate = useNavigate();
+  const [selectedSeason, setSelectedSeason] = useState('2025-26');
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-24">
+    <div className="min-h-screen bg-slate-50 pb-8">
       <div className="max-w-md mx-auto px-4 pt-6 space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
           <Logo className="text-lg" />
-          <span className="text-sm text-slate-500">2025/26 Season</span>
+          <SeasonSelector 
+            seasons={mockSeasons}
+            selectedSeason={selectedSeason}
+            onSeasonChange={setSelectedSeason}
+          />
         </div>
 
         {/* Season Stats Hero */}
@@ -74,7 +76,7 @@ export default function Dashboard() {
         />
 
         {/* Days Per Month Chart */}
-        <DaysPerMonthChart data={mockMonthlyData} />
+        <DaysPerMonthChart data={mockMonthlyData} seasonStartMonth={8} />
 
         {/* Map View */}
         <ResortMap resorts={mockResorts} />
@@ -89,20 +91,6 @@ export default function Dashboard() {
 
         {/* Skis Usage */}
         <SkisUsageCard skis={mockSkis} />
-
-        {/* Recent Activity */}
-        <RecentActivityCard days={mockRecentDays} />
-      </div>
-
-      {/* Floating Action Button */}
-      <div className="fixed bottom-6 left-0 right-0 px-4 max-w-md mx-auto">
-        <Button 
-          onClick={() => navigate("/log")}
-          className="w-full h-14 text-lg bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white shadow-xl transition-all hover:shadow-2xl rounded-full"
-        >
-          <Plus className="mr-2 h-5 w-5" />
-          Log a Day
-        </Button>
       </div>
     </div>
   );

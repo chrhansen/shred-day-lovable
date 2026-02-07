@@ -9,19 +9,56 @@ interface TagData {
 
 interface TagsBreakdownChartProps {
   data: TagData[];
+  maxVisible?: number;
 }
 
-const COLORS = ['#4f46e5', '#06b6d4', '#8b5cf6', '#f59e0b', '#10b981', '#f43f5e'];
+const COLORS = ['#4f46e5', '#06b6d4', '#8b5cf6', '#f59e0b', '#10b981', '#94a3b8'];
 
-export function TagsBreakdownChart({ data }: TagsBreakdownChartProps) {
-  const total = data.reduce((sum, d) => sum + d.count, 0);
+// Process tags to show top N and group rest as "Other"
+function processTagsData(data: TagData[], maxVisible: number): TagData[] {
+  if (data.length <= maxVisible) {
+    return data;
+  }
+  
+  // Sort by count descending
+  const sorted = [...data].sort((a, b) => b.count - a.count);
+  const topTags = sorted.slice(0, maxVisible);
+  const otherTags = sorted.slice(maxVisible);
+  
+  if (otherTags.length > 0) {
+    const otherCount = otherTags.reduce((sum, t) => sum + t.count, 0);
+    topTags.push({ name: 'Other', count: otherCount });
+  }
+  
+  return topTags;
+}
+
+export function TagsBreakdownChart({ data, maxVisible = 5 }: TagsBreakdownChartProps) {
+  const processedData = processTagsData(data, maxVisible);
+  const total = processedData.reduce((sum, d) => sum + d.count, 0);
+  
+  if (total === 0) {
+    return (
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-slate-50">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base font-semibold text-slate-700 flex items-center gap-2">
+            <Tags className="h-4 w-4 text-indigo-500" />
+            Top Tags
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <p className="text-sm text-slate-500 text-center py-8">No tags used yet</p>
+        </CardContent>
+      </Card>
+    );
+  }
   
   return (
     <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-slate-50">
       <CardHeader className="pb-2">
         <CardTitle className="text-base font-semibold text-slate-700 flex items-center gap-2">
           <Tags className="h-4 w-4 text-indigo-500" />
-          Day Types
+          Top Tags
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
@@ -29,7 +66,7 @@ export function TagsBreakdownChart({ data }: TagsBreakdownChartProps) {
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
-                data={data}
+                data={processedData}
                 cx="50%"
                 cy="50%"
                 innerRadius={35}
@@ -37,7 +74,7 @@ export function TagsBreakdownChart({ data }: TagsBreakdownChartProps) {
                 paddingAngle={3}
                 dataKey="count"
               >
-                {data.map((_, index) => (
+                {processedData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
