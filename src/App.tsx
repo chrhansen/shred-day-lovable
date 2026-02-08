@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import LandingPage from "./pages/LandingPage";
-import Dashboard from "./pages/Dashboard";
+import Stats from "./pages/Stats";
 import LogDay from "./pages/LogDay";
 import DaysPage from "./pages/DaysPage";
 import PhotoImportPage from "./pages/PhotoImportPage";
@@ -55,7 +55,7 @@ const App = () => (
           <Route path="/link-preview" element={<LinkPreviewMockup />} />
           
           {/* App routes with sidebar */}
-          <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
+          <Route path="/stats" element={<AppLayout><Stats /></AppLayout>} />
           <Route path="/log" element={<AppLayout><LogDay /></AppLayout>} />
           <Route path="/days" element={<AppLayout><DaysPage /></AppLayout>} />
           <Route path="/import" element={<AppLayout><PhotoImportPage /></AppLayout>} />

@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/sidebar";
 
 const navigationItems = [
-  { title: "Dashboard", url: "/dashboard", icon: Home },
+  { title: "Stats", url: "/stats", icon: Home },
   { title: "Days", url: "/days", icon: Calendar },
   { title: "Log Day", url: "/log", icon: PlusCircle },
 ];
