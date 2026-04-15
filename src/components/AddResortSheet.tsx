@@ -6,9 +6,17 @@ import {
   DrawerTitle,
   DrawerFooter,
 } from "@/components/ui/drawer";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, MapPin, Navigation } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -137,89 +145,113 @@ export function AddResortSheet({
     });
   };
 
-  return (
-    <Drawer open={open} onOpenChange={onOpenChange} modal={true}>
-      <DrawerContent className="max-h-[90vh]" onPointerDownOutside={(e) => e.preventDefault()}>
-        <DrawerHeader className="pb-2">
-          <DrawerTitle className="text-base">Add new resort</DrawerTitle>
-        </DrawerHeader>
+  const isMobile = useIsMobile();
 
-        <div className="px-4 space-y-4 overflow-y-auto">
-          {/* Resort name */}
-          <div>
-            <label className="text-sm font-medium text-muted-foreground mb-1.5 block">
-              Resort name
-            </label>
-            <Input
-              value={resortName}
-              onChange={(e) => onResortNameChange(e.target.value)}
-              placeholder="Resort name"
-              autoFocus
-            />
-          </div>
+  const formContent = (
+    <div className="space-y-4 overflow-y-auto px-4 md:px-0">
+      {/* Resort name */}
+      <div>
+        <label className="text-sm font-medium text-muted-foreground mb-1.5 block">
+          Resort name
+        </label>
+        <Input
+          value={resortName}
+          onChange={(e) => onResortNameChange(e.target.value)}
+          placeholder="Resort name"
+          autoFocus
+        />
+      </div>
 
-          {/* Map picker */}
-          <div>
-            <label className="text-sm font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5" />
-              Location
-              <span className="font-normal text-muted-foreground/70">(optional)</span>
-            </label>
-            <p className="text-xs text-muted-foreground mb-2">
-              Tap on the map to set the resort location
-            </p>
-            <div
-              ref={mapRef}
-              className="w-full h-48 rounded-lg border bg-muted overflow-hidden"
-              style={{ touchAction: "none" }}
-              onPointerDown={(e) => e.stopPropagation()}
-              onPointerMove={(e) => e.stopPropagation()}
-              onTouchStart={(e) => { e.stopPropagation(); }}
-              onTouchMove={(e) => { e.preventDefault(); e.stopPropagation(); }}
-              onTouchEnd={(e) => { e.stopPropagation(); }}
-            />
-          </div>
+      {/* Map picker */}
+      <div>
+        <label className="text-sm font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
+          <MapPin className="h-3.5 w-3.5" />
+          Location
+          <span className="font-normal text-muted-foreground/70">(optional)</span>
+        </label>
+        <p className="text-xs text-muted-foreground mb-2">
+          Tap on the map to set the resort location
+        </p>
+        <div
+          ref={mapRef}
+          className="w-full h-48 rounded-lg border bg-muted overflow-hidden"
+          style={{ touchAction: "none" }}
+          onPointerDown={(e) => e.stopPropagation()}
+          onPointerMove={(e) => e.stopPropagation()}
+          onTouchStart={(e) => { e.stopPropagation(); }}
+          onTouchMove={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onTouchEnd={(e) => { e.stopPropagation(); }}
+        />
+      </div>
 
-          {/* Coordinates */}
-          <div>
-            <label className="text-sm font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
-              <Navigation className="h-3.5 w-3.5" />
-              Or enter coordinates
-            </label>
-            <div className="flex gap-2">
-              <Input
-                type="text"
-                inputMode="decimal"
-                placeholder="Latitude"
-                value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
-                onBlur={handleCoordinateBlur}
-                className="flex-1"
-              />
-              <Input
-                type="text"
-                inputMode="decimal"
-                placeholder="Longitude"
-                value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
-                onBlur={handleCoordinateBlur}
-                className="flex-1"
-              />
-            </div>
-          </div>
+      {/* Coordinates */}
+      <div>
+        <label className="text-sm font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
+          <Navigation className="h-3.5 w-3.5" />
+          Or enter coordinates
+        </label>
+        <div className="flex gap-2">
+          <Input
+            type="text"
+            inputMode="decimal"
+            placeholder="Latitude"
+            value={latitude}
+            onChange={(e) => setLatitude(e.target.value)}
+            onBlur={handleCoordinateBlur}
+            className="flex-1"
+          />
+          <Input
+            type="text"
+            inputMode="decimal"
+            placeholder="Longitude"
+            value={longitude}
+            onChange={(e) => setLongitude(e.target.value)}
+            onBlur={handleCoordinateBlur}
+            className="flex-1"
+          />
         </div>
+      </div>
+    </div>
+  );
 
-        <DrawerFooter className="pt-4">
-          <Button
-            onClick={handleAdd}
-            disabled={!resortName.trim()}
-            className="w-full"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Add {resortName.trim() || "resort"}
-          </Button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+  const addButton = (
+    <Button
+      onClick={handleAdd}
+      disabled={!resortName.trim()}
+      className="w-full"
+    >
+      <Plus className="h-4 w-4 mr-2" />
+      Add {resortName.trim() || "resort"}
+    </Button>
+  );
+
+  if (isMobile) {
+    return (
+      <Drawer open={open} onOpenChange={onOpenChange} modal={true}>
+        <DrawerContent className="max-h-[90vh]" onPointerDownOutside={(e) => e.preventDefault()}>
+          <DrawerHeader className="pb-2">
+            <DrawerTitle className="text-base">Add new resort</DrawerTitle>
+          </DrawerHeader>
+          {formContent}
+          <DrawerFooter className="pt-4">
+            {addButton}
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    );
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Add new resort</DialogTitle>
+        </DialogHeader>
+        {formContent}
+        <DialogFooter className="pt-4">
+          {addButton}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
