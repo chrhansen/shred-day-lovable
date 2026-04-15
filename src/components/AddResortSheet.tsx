@@ -89,8 +89,8 @@ export function AddResortSheet({
 
       L.control.zoom({ position: "bottomright" }).addTo(map);
 
-      L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-        maxZoom: 17,
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        maxZoom: 19,
       }).addTo(map);
 
       map.on("click", (e: L.LeafletMouseEvent) => {
