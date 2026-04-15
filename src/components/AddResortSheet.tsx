@@ -6,9 +6,17 @@ import {
   DrawerTitle,
   DrawerFooter,
 } from "@/components/ui/drawer";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, MapPin, Navigation } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
