@@ -174,13 +174,7 @@ export function AddResortSheet({
         </p>
         <div
           ref={mapRef}
-          className="w-full h-48 rounded-lg border bg-muted overflow-hidden"
-          style={{ touchAction: "none" }}
-          onPointerDown={(e) => e.stopPropagation()}
-          onPointerMove={(e) => e.stopPropagation()}
-          onTouchStart={(e) => { e.stopPropagation(); }}
-          onTouchMove={(e) => { e.preventDefault(); e.stopPropagation(); }}
-          onTouchEnd={(e) => { e.stopPropagation(); }}
+          className="h-48 w-full overflow-hidden rounded-lg border bg-muted"
         />
       </div>
 
@@ -227,7 +221,7 @@ export function AddResortSheet({
 
   if (isMobile) {
     return (
-      <Drawer open={open} onOpenChange={onOpenChange} modal={true}>
+      <Drawer open={open} onOpenChange={onOpenChange} modal={true} handleOnly>
         <DrawerContent className="max-h-[90vh]" onPointerDownOutside={(e) => e.preventDefault()}>
           <DrawerHeader className="pb-2">
             <DrawerTitle className="text-base">Add new resort</DrawerTitle>
