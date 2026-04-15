@@ -174,9 +174,9 @@ export function AddResortSheet({
               style={{ touchAction: "none" }}
               onPointerDown={(e) => e.stopPropagation()}
               onPointerMove={(e) => e.stopPropagation()}
-              onTouchStart={(e) => e.stopPropagation()}
-              onTouchMove={(e) => e.stopPropagation()}
-              onTouchEnd={(e) => e.stopPropagation()}
+              onTouchStart={(e) => { e.stopPropagation(); }}
+              onTouchMove={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              onTouchEnd={(e) => { e.stopPropagation(); }}
             />
           </div>
 
@@ -188,25 +188,21 @@ export function AddResortSheet({
             </label>
             <div className="flex gap-2">
               <Input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 placeholder="Latitude"
                 value={latitude}
                 onChange={(e) => setLatitude(e.target.value)}
                 onBlur={handleCoordinateBlur}
-                step="any"
-                min={-90}
-                max={90}
                 className="flex-1"
               />
               <Input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 placeholder="Longitude"
                 value={longitude}
                 onChange={(e) => setLongitude(e.target.value)}
                 onBlur={handleCoordinateBlur}
-                step="any"
-                min={-180}
-                max={180}
                 className="flex-1"
               />
             </div>
