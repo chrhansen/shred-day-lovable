@@ -138,8 +138,8 @@ export function AddResortSheet({
   };
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="max-h-[90vh]">
+    <Drawer open={open} onOpenChange={onOpenChange} modal={true}>
+      <DrawerContent className="max-h-[90vh]" onPointerDownOutside={(e) => e.preventDefault()}>
         <DrawerHeader className="pb-2">
           <DrawerTitle className="text-base">Add new resort</DrawerTitle>
         </DrawerHeader>
@@ -170,10 +170,13 @@ export function AddResortSheet({
             </p>
             <div
               ref={mapRef}
-              className="w-full h-48 rounded-lg border bg-muted overflow-hidden touch-none"
+              className="w-full h-48 rounded-lg border bg-muted overflow-hidden"
+              style={{ touchAction: "none" }}
               onPointerDown={(e) => e.stopPropagation()}
+              onPointerMove={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
             />
           </div>
 
@@ -207,11 +210,6 @@ export function AddResortSheet({
                 className="flex-1"
               />
             </div>
-            {markerPos && (
-              <p className="text-xs text-muted-foreground mt-1.5">
-                📍 {markerPos.lat.toFixed(4)}, {markerPos.lng.toFixed(4)}
-              </p>
-            )}
           </div>
         </div>
 
