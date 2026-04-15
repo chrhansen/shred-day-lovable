@@ -46,9 +46,18 @@ export function AddResortSheet({
         markerRef.current = L.marker([lat, lng], {
           icon: L.divIcon({
             className: "custom-marker",
-            html: `<div style="width:24px;height:24px;background:#3b82f6;border:3px solid white;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>`,
-            iconSize: [24, 24],
-            iconAnchor: [12, 12],
+            html: `<div style="
+              width: 24px;
+              height: 34px;
+              position: relative;
+            ">
+              <svg viewBox="0 0 24 34" width="24" height="34" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 22 12 22s12-13 12-22C24 5.4 18.6 0 12 0z" fill="#4f46e5"/>
+                <circle cx="12" cy="11" r="5" fill="white"/>
+              </svg>
+            </div>`,
+            iconSize: [24, 34],
+            iconAnchor: [12, 34],
           }),
         }).addTo(mapInstanceRef.current);
       }
@@ -80,8 +89,8 @@ export function AddResortSheet({
 
       L.control.zoom({ position: "bottomright" }).addTo(map);
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "© OpenStreetMap",
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        maxZoom: 19,
       }).addTo(map);
 
       map.on("click", (e: L.LeafletMouseEvent) => {
@@ -161,7 +170,10 @@ export function AddResortSheet({
             </p>
             <div
               ref={mapRef}
-              className="w-full h-48 rounded-lg border bg-muted overflow-hidden"
+              className="w-full h-48 rounded-lg border bg-muted overflow-hidden touch-none"
+              onPointerDown={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
             />
           </div>
 
